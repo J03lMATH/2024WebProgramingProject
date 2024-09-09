@@ -119,6 +119,105 @@
                 </div>
             </div>
 
+            <!-- Creating middle column boxt (To do List)--> 
+            <div class="column is-half">
+                <article class="panel">
+
+                    <div class="tabs is-boxed">
+                        <ul>
+
+                            <li class="is-active">
+                                <a>
+                                    <span class="icon is-small">
+                                        <i class="fas fa-clipboard-list"></i>
+                                    </span>
+                                    <span>Current</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a>
+                                    <span class="icon is-small">
+                                        <i class="fas fa-calendar-times"></i>
+                                    </span>
+                                    <span>Completed</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a>
+                                    <span class="icon is-small">
+                                        <i class="fas fa-calendar-day"></i>
+                                    </span>
+                                    <span>Upcoming</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a>
+                                    <span class="icon is-small">
+                                        <i class="fas fa-calendar"></i>
+                                    </span>
+                                    <span>All</span>
+                                </a>
+                            </li>
+                            
+                        </ul>
+                    </div>
+
+                    <div class="panel-block">
+                        <p class="control has-icons-left">
+                            <input type="text" class="input is-primary" placeholder="New Task">
+                            
+                            <span class="icon is-left">
+                                <i class="fa fa-calendar-plus" aria-hidden="true"></i>
+                            </span>
+
+                        </p>
+                    </div>
+
+                    <!-- Making the checkboxes -->
+                    <a class="panel-block">
+                        <!-- Checking the box like the one below auto checks it -->
+                        <input type="checkbox" checked />
+                        Make Bulma great again
+                    </a>
+                    <a class="panel-block">
+                        <input type="checkbox" />
+                        Add some more features
+                    </a>
+                    <a class="panel-block">
+                        <input type="checkbox" />
+                        Make a github account
+                    </a>
+                    <a class="panel-block">
+                        <input type="checkbox" />
+                        Learn how to use github
+                    </a>
+                    <a class="panel-block">
+                        <input type="checkbox" />
+                        add a .gitignore file
+                    </a>
+
+                </article>
+
+                <article class="message is-primary">
+                    <div class="message-header">
+                        <p>Make a github account</p>
+                        <button class="delete" aria-label="delete"></button>
+                    </div>
+                    <div class="message-body">
+                        <p>Go to <a href="https://github.com">github.com</a> and create an account.</p>
+                        <p>
+                        That's where you'll be able to share your work with the world.. thats where we will be putting all of our code for this class.
+                        </p>
+                        <progress class="progress is-success" value="60" max="100">60%</progress>
+                    </div>
+                </article>
+
+                
+
+            </div>
             
         </div>
     </div>
