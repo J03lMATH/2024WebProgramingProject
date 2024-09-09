@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head> 
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, iniitial-scale=1.0">
+    <title>Menu Example</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            background-color: rgb(220, 250, 230);
+            font-family:  Arial, Helvetica, sans-serif;
+            margin:0;
+            padding:0;
+        }
+        nav {
+            background-color: rgb(39, 156, 64);
+            display: flex;
+            flex-direction: row;
+        }
+        h2, label {
+            background-color: rgb(39, 156, 64);
+            font-size: large;
+            display: block;
+            margin: 0;
+            padding: 5px 10px;
+            min-width: 100px;
+        }
+        .dropdown{
+            background-color: rgb(39, 196, 64);
+            position: relative;
+        }
+        .dropdown-content{
+            background-color: rgb(39, 196, 64);
+            display: none;
+            flex-direction: column;
+            position: absolute;
+            width: 100%;
+        }
+        nav > div:hover > div, nav > div:focus-within > div {
+            display: flex;
+        }
+        
+        .dropdown-content a {
+            display: flex;
+        }
+        nav input {
+            position: absolute;
+            top: -100px;
+        }
+        nav a {
+            display: block;
+            padding: 5px 10px;
+            text-decoration: none;
+        }
+        nav a:hover{
+            background-color: rgb(39, 255, 64);
+        }
+
+        .dropdown:hover .dropdown-content {display: block;}
+        .dropdown:hover h2 {background-color: rgb(39, 196, 64);}
+        .dropdown:hover label {background-color: rgb(39, 196, 64);}
+        .dropdown:focus-within label {background-color: rgb(39, 196, 64);}
+        
+        h3{
+            margin: 0;
+        }
+        .Holder{
+            max-width: 1230px;
+            margin: 0 auto;
+        }
+        .Instruction{
+            background-color: rgb(255, 255, 255);
+            border-left: 5px solid rgb(39, 196, 64);
+            padding: 15px;
+            margin: 25px;
+        }
+        .Extra{
+            background-color: rgb(255, 255, 255);
+            border-left: 5px solid rgb(245,245, 80);
+            padding: 15px;
+            margin: 25px;
+
+        }
+
+    </style>
+</head>
+
+<body>
+    <nav>
+    <div class="dropdown">
+        <h2>File</h2>
+        <div class="dropdown-content">
+            <a href="">New</a>
+            <a href="">Open</a>
+            <a href="">Save</a>
+            <a href="">Print</a>
+            <a href="">Close</a>
+        </div>
+    </div>
+
+    <div class="dropdown">
+        <label>
+            <input>
+            Edit
+        </label>
+        <div class="dropdown-content">
+            <a href="">Undo</a>
+            <a href="">Redo</a>
+            <a href="">Cut</a>
+            <a href="">Copy</a>
+            <a href="">Paste</a>
+            <a href="">Delete</a>
+            <a href="">Select All</a>
+
+        </div>
+
+    </div>
+
+    <div class="dropdown">
+        <h2>View</h2>
+        <div class="dropdown-content">
+            <a href="">Zoom In</a>
+                <a href="">Zoom Out</a>
+                <a href="">Actual Size</a>
+                <a href="">Fit Page</a>
+                <a href="">Fit Width</a>
+                <a href="">Fit Height</a>
+                <a href="">Rotate Left</a>
+                <a href="">Rotate Right</a>
+                <a href="">Full Screen</a>
+        </div>
+    </div>
+    </nav>
+
+    <div class="Holder">
+
+        <div class="Instruction">
+            <h3>Instructions</h3>
+            <p>Recreate this page using <b><i>only CSS.</i></b> Do yourself a favor and 1) Do not view the source. Figure it out yourself. 2) Do not search for the solution. Learn CSS until you know enough to do this.</p>
+        </div>
+
+        <div class="Extra">
+            <h3>Extra Credit</h3>
+            <p>Notice how the Edit menu (besides for not being bold) reacts to clicks. If you click the edit menu, it remains open until you click somewhere else. (This you might need to search for)</p>
+        </div>
+    </div>
+
+</body>    
+</html>
