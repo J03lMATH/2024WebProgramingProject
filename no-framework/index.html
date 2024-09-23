@@ -10,22 +10,163 @@
     >
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
-        .bg-white {
-            background-color: whitesmoke;
-        }
-        .list {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 1rem;
-        }
-        input{
-          background-color: white;
-          padding: 1rem;
-          border-radius: 0.5rem;
-          box-shadow: 0 0 5px rgba(237, 228, 228, 0.1);
-          width: 150px;
-          cursor: pointer;
-        } 
+
+      :root {
+        --primary: #EA40A4;
+        --danger: #ff5b57;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'montserrat', sans-serif;
+      }
+
+      input:not([type="radio"]):not([type="checkbox"]), button {
+        appearance: none;
+        border: none;
+        outline: none;
+        background: none;
+        cursor: initial;
+      }
+
+      section {
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+        padding-left: 1.5rem;
+        padding-right: 1.5em;
+      }
+
+      h3 {
+        color: black;
+        background-color:rgb(131, 147, 176);
+        font-size: 1rem;
+        font-weight: 400;
+        margin-bottom: 0.5rem;
+        align-items: center;
+      }
+
+      .bg-white {
+        background-color: whitesmoke;
+      }
+
+      .create-todo input[type="text"] {
+        display: block;
+        width: 100%;
+        font-size: 1rem;
+        padding: 1rem 1.5rem;
+        color: var(--dark);
+        background-color: #FFF;
+        border-radius: 0.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .create-todo .options {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .create-todo .options label {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 1.5rem;
+        background-color: #FFF;
+        border-radius: 0.5rem;
+        cursor: pointer;
+      }
+
+      input[type="radio"] {
+        display: none;
+      }
+
+      .create-todo .options label div {
+        color: var(--dark);
+        font-size: 1.125rem;
+        margin-top: 1rem;
+      }
+
+      .create-todo input[type="submit"] {
+        display: block;
+        width: 100%;
+        font-size: 1.125rem;
+        padding: 1rem 1.5rem;
+        color: #FFF;
+        background-color: var(--primary);
+        border-radius: 0.5rem;
+        box-shadow: rgb(99, 9, 63);
+        cursor: pointer;
+        transition: 0.2s ease-in-out;
+      }
+
+      .create-todo input[type="submit"]:hover {
+        opacity: 0.75;
+      }
+
+      .todo-list .list {
+        margin: 1rem 0;
+      } 
+
+      .todo-list .todo-item {
+        display: flex;
+        align-items: center;
+        background-color: #FFF;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        box-shadow: rgb(24, 24, 25);
+        margin-bottom: 1rem;
+      }
+
+      .todo-item label {
+        margin-right: 1rem;
+      }
+
+      .todo-item .todo-content {
+        flex: 1 1 0%;
+      }
+
+      .todo-item .todo-content input {
+        color: rgb(5, 5, 31);
+        font-size: 1.125rem;
+      }
+
+      .todo-item .actions {
+        display: flex;
+        align-items: center;
+      }
+
+      .todo-item .actions button {
+        display: block;
+        padding: 0.5rem;
+        border-radius: 0.25rem;
+        color: #FFF;
+        cursor: pointer;
+        transition: 0.2s ease-in-out;
+      }
+
+      .todo-item .actions button:hover {
+        opacity: 0.75;
+      }
+
+      .todo-item .actions .edit {
+        margin-right: 0.5rem;
+        background-color: var(--primary);
+      }
+
+      .todo-item .actions .delete {
+        background-color: var(--danger);
+      }
+
+      .todo-item.done .todo-content input {
+        text-decoration: line-through;
+        color: var(--grey);
+      }
+
+        
         
     </style>
   </head>
@@ -104,8 +245,8 @@
 
     <!-- Start of To-Do -->
     <div class="hero is-info">
-        <div class="hero-body">
-
+      <div class="hero-body">
+    <section class="todo-list">
     <div class="container">
         <h1 class="title">
             <i class="fa-solid fa-calendar"></i>
@@ -113,7 +254,7 @@
         </h1>
 
         <div class="section bg-white" id="app">
-            <div class="columns">
+            <div class="columns is-mobile is-centered">
                 <div class="column is-one-third">
                     <div class="create-todo">
                         <form @submit.prevent="addToDo">
@@ -123,29 +264,30 @@
                         </form>
                     </div>
                 </div>
-                <div class="column is-two-thirds">
-                    <h3>TODO LIST</h3>
-                    <div class="list">
-                        <div v-for="todo in todos_asc" :class="`todo-item ${todo.done && 'done'}`">
-                            <label>
-                                <input type="checkbox" v-model="todo.done" />
-                            </label>
 
-                            <div class="todo-content">
-                                <input type="text" v-model="todo.content">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+                <div class="column is-one-half">
+                  <h3>TODO LIST</h3>
+                  <div class="list">
+                      <div v-for="todo in todos_asc" :class="`todo-item ${todo.done && 'done'}`">
+                          <label>
+                              <input type="checkbox" v-model="todo.done" />
+                          </label>
+      
+                          <div class="todo-content">
+                              <input type="text" v-model="todo.content">
+                          </div>
+      
+                          <div class="actions">
+                            <button class="delete" @click="removeToDo(todo)"></button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
         </div>
-
-
-        
-        
-
-       
+ 
     </div>
+    </div>
+  </section>
 </div>
 </div>
 
@@ -176,6 +318,8 @@
             done: false,
             creadedAt: new Date().getTime()
         })
+
+        input_content.value=''
       }
 
       input_content.value = ''
