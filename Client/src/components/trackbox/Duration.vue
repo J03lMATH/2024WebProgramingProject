@@ -2,7 +2,7 @@
 
 <template>
   <div class="container">
-    <h3 id="time" class="subtitle is-3">0:00</h3>
+    <h3 id="time" class="subtitle is-3">0 min</h3>
     <p>Duration</p>
   </div>
 </template>

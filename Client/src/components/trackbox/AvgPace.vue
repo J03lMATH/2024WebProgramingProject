@@ -2,7 +2,7 @@
 
 <template>
   <div class="container">
-    <h3 id="pace" class="subtitle is-3">NaN mph</h3>
+    <h3 id="pace" class="subtitle is-3">0 mph</h3>
     <p>Avg Pace</p>
   </div>
 </template>
