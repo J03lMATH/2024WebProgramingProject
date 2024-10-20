@@ -1,8 +1,42 @@
 <script setup lang="ts">
-import AvgPace from '@/components/AvgPace.vue'
-import Distance from '@/components/Distance.vue'
-import Duration from '@/components/Duration.vue'
-import Calories from '@/components/Calories.vue'
+import AvgPace from '@/components/trackbox/AvgPace.vue'
+import Distance from '@/components/trackbox/Distance.vue'
+import Duration from '@/components/trackbox/Duration.vue'
+import Calories from '@/components/trackbox/Calories.vue'
+import Tracker from '@/components/Tracker.vue'
+
+import { ref } from 'vue'
+
+const tracks = ref([
+  {
+    id: 1,
+    distance: 2.5 + 'miles',
+    duration: 30 + 'min',
+    calories: 200 + 'cal',
+    avgPace: 12 + 'mph',
+  },
+  {
+    id: 2,
+    distance: 3.0 + ' miles',
+    duration: 35 + ' min',
+    calories: 250 + ' cal',
+    avgPace: 10 + ' mph',
+  },
+  {
+    id: 3,
+    distance: 4.2 + ' miles',
+    duration: 50 + ' min',
+    calories: 300 + ' cal',
+    avgPace: 8 + ' mph',
+  },
+  {
+    id: 4,
+    distance: 5.0 + ' miles',
+    duration: 60 + ' min',
+    calories: 350 + ' cal',
+    avgPace: 9 + ' mph',
+  },
+])
 </script>
 
 <template>
@@ -29,9 +63,15 @@ import Calories from '@/components/Calories.vue'
             </div>
           </div>
         </div>
+
+        <tracker :tracks="tracks" />
       </div>
     </div>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.column {
+  margin-top: 1rem;
+}
+</style>

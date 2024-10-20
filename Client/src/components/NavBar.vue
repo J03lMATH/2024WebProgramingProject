@@ -36,9 +36,12 @@ const isOpen = ref(false)
       <div class="navbar-menu" :class="{ 'is-active': isOpen }">
         <div class="navbar-start">
           <RouterLink to="/" class="navbar-item">Home</RouterLink>
-          <RouterLink to="/activity" class="navbar-item"
-            >My Activities</RouterLink
-          >
+          <RouterLink to="/activity" class="navbar-item">
+            <span class="icon-text has-text-primary-100">
+              <i class="fas fa-fire"></i>
+            </span>
+            <span>My Activives</span>
+          </RouterLink>
           <RouterLink to="/friends" class="navbar-item">Friends</RouterLink>
 
           <div class="navbar-item has-dropdown is-hoverable">
@@ -76,7 +79,9 @@ const isOpen = ref(false)
               <a class="button is-primary">
                 <strong>Sign up</strong>
               </a>
-              <a class="button is-light"> Log in </a>
+              <RouterLink to="/login" class="button is-light">
+                Log in
+              </RouterLink>
             </div>
           </div>
         </div>
@@ -88,5 +93,8 @@ const isOpen = ref(false)
 .router-link-active {
   font-weight: bold;
   border-bottom: 2px solid rgb(95, 15, 15);
+}
+.icon-text {
+  margin-right: -0.6rem;
 }
 </style>
