@@ -3,6 +3,8 @@ import AvgPace from '@/components/trackbox/AvgPace.vue'
 import Distance from '@/components/trackbox/Distance.vue'
 import Duration from '@/components/trackbox/Duration.vue'
 import Calories from '@/components/trackbox/Calories.vue'
+
+//array of tracks
 import Tracker from '@/components/Tracker.vue'
 import { ref } from 'vue'
 import { getAll, type Track } from '@/models/tracks'

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Track } from '@/models/track'
+import { Track } from '@/models/tracks'
 
 defineProps<{
   tracks: Track
