@@ -5,9 +5,12 @@ import Duration from '@/components/trackbox/Duration.vue'
 import Calories from '@/components/trackbox/Calories.vue'
 import Tracker from '@/components/Tracker.vue'
 import { ref } from 'vue'
+import { getAll, type Track } from '@/models/tracks'
+const tracks = ref<Track[]>([])
+tracks.value = getAll().data
 
 //for the tracker component
-const tracks = ref([
+/*const tracks = ref([
   {
     id: 1,
     date: '10/01/2023',
@@ -40,7 +43,7 @@ const tracks = ref([
     calories: 350 + ' cal',
     avgPace: 9 + ' mph',
   },
-])
+])*/
 </script>
 
 <template>

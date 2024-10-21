@@ -1,12 +1,9 @@
 <script setup lang="ts">
-import { defineProps } from 'vue'
+import { Track } from '@/models/track'
 
-const props = defineProps({
-  tracks: {
-    type: Array,
-    required: true,
-  },
-})
+defineProps<{
+  tracks: Track
+}>()
 </script>
 
 <template>
@@ -21,25 +18,25 @@ const props = defineProps({
     <div class="columns is-multiline">
       <div class="column is-half">
         <div class="container">
-          <h3 class="subtitle is-3">{{ track.avgPace }}</h3>
+          <h3 class="subtitle is-3">{{ track.avgPace }} mph</h3>
           <p>Avg Pace</p>
         </div>
       </div>
       <div class="column is-half">
         <div class="container">
-          <h3 class="subtitle is-3">{{ track.distance }}</h3>
+          <h3 class="subtitle is-3">{{ track.distance }} miles</h3>
           <p>Distance</p>
         </div>
       </div>
       <div class="column is-half">
         <div class="container">
-          <h3 class="subtitle is-3">{{ track.duration }}</h3>
+          <h3 class="subtitle is-3">{{ track.duration }} minutes</h3>
           <p>Duration</p>
         </div>
       </div>
       <div class="column is-half">
         <div class="container">
-          <h3 class="subtitle is-3">{{ track.calories }}</h3>
+          <h3 class="subtitle is-3">{{ track.calories }} cal</h3>
           <p>Calories</p>
         </div>
       </div>
