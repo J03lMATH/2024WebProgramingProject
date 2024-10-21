@@ -10,6 +10,8 @@ export function getAll(): DataListEnvelope<Track> {
 
 export interface Track {
   id: number
+  title: string
+  type: string
   date: string
   distance: number
   duration: number
