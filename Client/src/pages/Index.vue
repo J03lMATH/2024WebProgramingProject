@@ -4,19 +4,21 @@ import Distance from '@/components/trackbox/Distance.vue'
 import Duration from '@/components/trackbox/Duration.vue'
 import Calories from '@/components/trackbox/Calories.vue'
 import Tracker from '@/components/Tracker.vue'
-
 import { ref } from 'vue'
 
+//for the tracker component
 const tracks = ref([
   {
     id: 1,
-    distance: 2.5 + 'miles',
-    duration: 30 + 'min',
-    calories: 200 + 'cal',
-    avgPace: 12 + 'mph',
+    date: '10/01/2023',
+    distance: 2.5 + ' miles',
+    duration: 30 + ' min',
+    calories: 200 + ' cal',
+    avgPace: 12 + ' mph',
   },
   {
     id: 2,
+    date: '10/02/2023',
     distance: 3.0 + ' miles',
     duration: 35 + ' min',
     calories: 250 + ' cal',
@@ -24,6 +26,7 @@ const tracks = ref([
   },
   {
     id: 3,
+    date: '10/03/2023',
     distance: 4.2 + ' miles',
     duration: 50 + ' min',
     calories: 300 + ' cal',
@@ -31,6 +34,7 @@ const tracks = ref([
   },
   {
     id: 4,
+    date: '10/04/2023',
     distance: 5.0 + ' miles',
     duration: 60 + ' min',
     calories: 350 + ' cal',
@@ -64,7 +68,7 @@ const tracks = ref([
           </div>
         </div>
 
-        <tracker :tracks="tracks" />
+        <Tracker :tracks="tracks" />
       </div>
     </div>
   </div>
