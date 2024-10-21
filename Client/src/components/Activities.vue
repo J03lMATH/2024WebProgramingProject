@@ -19,25 +19,41 @@ const isOpen = ref(false)
         <div class="modal" :class="{ 'is-active': isOpen }">
           <div class="modal-background"></div>
           <div class="modal-card">
-            <header class="modal-card-head">
-              <p class="modal-card-title">Add Workout</p>
+            <header class="modal-card-head has-background-danger-bold">
+              <p class="modal-card-title has-text-text-45">Add Workout</p>
               <button class="delete" aria-label="close"></button>
             </header>
 
-            <section class="model-card-body">
+            <section class="model-card-body has-background-text-bold">
               <div class="field">
-                <label class="label" for="title">Title</label>
-                <input type="text" class="input" id="title" />
+                <label class="label has-text-text-45" for="title">Title</label>
+                <div class="control">
+                  <input
+                    type="text"
+                    class="input has-background-text-100 has-text-text-45"
+                    id="title"
+                  />
+                </div>
               </div>
               <div class="field">
-                <label class="label" for="date">Date</label>
-
-                <input class="input" type="date" id="date" />
+                <label class="label has-text-text-45" for="date">Date</label>
+                <div class="control">
+                  <input
+                    class="input has-background-text-100 has-text-text-45"
+                    type="date"
+                    id="date"
+                  />
+                </div>
               </div>
               <div class="field">
-                <label class="label" for="type">Type of Workout</label>
-                <div class="slect is-full-witdh">
-                  <select class="form-control" id="type">
+                <label class="label has-text-text-45" for="type"
+                  >Type of Workout</label
+                >
+                <div class="select is-full-witdh">
+                  <select
+                    class="form-control has-background-text-100 has-text-text-45"
+                    id="type"
+                  >
                     <option value="run">Run</option>
                     <option value="bike">Bike</option>
                     <option value="swim">Swim</option>
@@ -48,22 +64,58 @@ const isOpen = ref(false)
                 </div>
               </div>
               <div class="field">
-                <label class="label" for="distance">Distance</label>
-                <input type="number" class="input" id="distance" />
+                <label class="label has-text-text-45" for="distance"
+                  >Distance</label
+                >
+                <div class="control">
+                  <input
+                    class="input has-background-text-100 has-text-text-45"
+                    type="number"
+                    id="distance"
+                    placeholder="by Feet"
+                  />
+                </div>
               </div>
               <div class="field">
-                <label class="label" for="duration">Duration</label>
-                <input type="number" class="input" id="duration" />
+                <label class="label has-text-text-45" for="duration"
+                  >Duration</label
+                >
+                <div class="control">
+                  <input
+                    class="input has-background-text-100 has-text-text-45"
+                    type="number"
+                    id="duration"
+                    placeholder="by Minutes"
+                  />
+                </div>
               </div>
               <div class="field">
-                <label class="label" for="calories">Calories</label>
-                <input type="number" class="input" id="calories" />
+                <label class="label has-text-text-45" for="calories"
+                  >Calories</label
+                >
+                <input
+                  type="number"
+                  class="input has-background-text-100 has-text-text-45"
+                  id="calories"
+                />
               </div>
               <div class="field">
-                <label class="label" for="avgPace">Average Pace</label>
-                <input type="number" class="input" id="avgPace" />
+                <label class="label has-text-text-45" for="avgPace"
+                  >Average Pace</label
+                >
+                <input
+                  type="number"
+                  class="input has-background-text-100 has-text-text-45"
+                  id="avgPace"
+                  placeholder="by mph"
+                />
               </div>
             </section>
+
+            <footer class="modal-card-foot has-background-danger-bold">
+              <button class="button is-success">Save</button>
+              <button class="button">Cancel</button>
+            </footer>
           </div>
         </div>
       </form>
@@ -71,4 +123,32 @@ const isOpen = ref(false)
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+p {
+  font-weight: bold;
+}
+
+label {
+  font-weight: bold;
+  margin-top: 0.3rem;
+  margin-left: 0.5rem;
+}
+input {
+  margin-left: 0.5rem;
+  margin-bottom: 0.5rem;
+  width: 95%;
+}
+input::placeholder {
+  color: #909090;
+}
+
+button {
+  margin-top: 0.5rem;
+  margin-left: 0.5rem;
+  width: 95%;
+}
+
+select {
+  margin-left: 0.5rem;
+}
+</style>

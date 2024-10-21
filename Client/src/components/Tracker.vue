@@ -24,13 +24,13 @@ defineProps<{
       </div>
       <div class="column is-half">
         <div class="container">
-          <h3 class="subtitle is-3">{{ track.distance }} miles</h3>
+          <h3 class="subtitle is-3">{{ track.distance }} ft</h3>
           <p>Distance</p>
         </div>
       </div>
       <div class="column is-half">
         <div class="container">
-          <h3 class="subtitle is-3">{{ track.duration }} minutes</h3>
+          <h3 class="subtitle is-3">{{ track.duration }} min</h3>
           <p>Duration</p>
         </div>
       </div>

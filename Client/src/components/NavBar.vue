@@ -37,9 +37,9 @@ const isOpen = ref(false)
         <div class="navbar-start">
           <RouterLink to="/" class="navbar-item">Home</RouterLink>
           <RouterLink to="/activity" class="navbar-item">
-            <span class="icon-text has-text-primary-100">
+            <!-- <span class="icon-text has-text-primary-100">
               <i class="fas fa-fire"></i>
-            </span>
+            </span> -->
             <span>My Activives</span>
           </RouterLink>
           <RouterLink to="/friends" class="navbar-item">Friends</RouterLink>
@@ -63,7 +63,7 @@ const isOpen = ref(false)
 
               <div class="navbar-dropdown">
                 <RouterLink to="/about" class="navbar-item"> About </RouterLink>
-                <RouterLink to="/jobs" class="navbar-item"> Jobs </RouterLink>
+                <!-- <RouterLink to="/jobs" class="navbar-item"> Jobs </RouterLink> -->
                 <RouterLink to="/contact" class="navbar-item">
                   Contact
                 </RouterLink>
