@@ -1,6 +1,8 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import Activities from '@/components/Activities.vue'
+</script>
 <template>
-  <h1 class="title">My Activities</h1>
+  <Activities />
 </template>
 
 <style scoped></style>
