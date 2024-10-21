@@ -26,10 +26,42 @@ const isOpen = ref(false)
 
             <section class="model-card-body">
               <div class="field">
-                <label class="label">Date</label>
-                <div class="control">
-                  <input class="input" type="date" />
+                <label class="label" for="title">Title</label>
+                <input type="text" class="input" id="title" />
+              </div>
+              <div class="field">
+                <label class="label" for="date">Date</label>
+
+                <input class="input" type="date" id="date" />
+              </div>
+              <div class="field">
+                <label class="label" for="type">Type of Workout</label>
+                <div class="slect is-full-witdh">
+                  <select class="form-control" id="type">
+                    <option value="run">Run</option>
+                    <option value="bike">Bike</option>
+                    <option value="swim">Swim</option>
+                    <option value="walk">Walk</option>
+                    <option value="swim">Strength</option>
+                    <option value="swim">Hike</option>
+                  </select>
                 </div>
+              </div>
+              <div class="field">
+                <label class="label" for="distance">Distance</label>
+                <input type="number" class="input" id="distance" />
+              </div>
+              <div class="field">
+                <label class="label" for="duration">Duration</label>
+                <input type="number" class="input" id="duration" />
+              </div>
+              <div class="field">
+                <label class="label" for="calories">Calories</label>
+                <input type="number" class="input" id="calories" />
+              </div>
+              <div class="field">
+                <label class="label" for="avgPace">Average Pace</label>
+                <input type="number" class="input" id="avgPace" />
               </div>
             </section>
           </div>
