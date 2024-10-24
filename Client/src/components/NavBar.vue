@@ -2,6 +2,15 @@
 import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import FlyoutPanel from '@/components/FlyoutPanel.vue'
+import ShoppingCart from '@/components/ShoppingCart.vue'
+import { refUser, logOut } from '@/models/userData'
+import { getAll, type User } from '@/models/users'
+import UserLogin from '@/components/UserLogin.vue'
+
+const users = ref<User[]>([])
+users.value = getAll().data
+
+const currentUser = refUser()
 
 const isOpen = ref(false)
 
@@ -60,41 +69,63 @@ const isCartOpen = ref(false)
         </div>
 
         <div class="navbar-end">
-          <div class="navbar-item">
-            <div class="navbar-item has-dropdown is-hoverable">
-              <a class="navbar-link"> More </a>
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link"> More </a>
 
-              <div class="navbar-dropdown">
-                <RouterLink to="/about" class="navbar-item"> About </RouterLink>
-                <!-- <RouterLink to="/jobs" class="navbar-item"> Jobs </RouterLink> -->
-                <RouterLink to="/contact" class="navbar-item">
-                  Contact
-                </RouterLink>
-                <RouterLink to="/products" class="navbar-item">
-                  Shop
-                </RouterLink>
-                <hr class="navbar-divider" />
-                <a class="navbar-item"> Report an issue </a>
-              </div>
+            <div class="navbar-dropdown">
+              <RouterLink to="/about" class="navbar-item"> About </RouterLink>
+              <!-- <RouterLink to="/jobs" class="navbar-item"> Jobs </RouterLink> -->
+              <RouterLink to="/contact" class="navbar-item">
+                Contact
+              </RouterLink>
+              <RouterLink to="/products" class="navbar-item"> Shop </RouterLink>
+              <hr class="navbar-divider" />
+              <a class="navbar-item"> Report an issue </a>
             </div>
+          </div>
 
+          <div
+            class="navbar-item has-dropdown is-hoverable"
+            v-if="currentUser.length === 0"
+          >
+            <a class="navbar-link">Login</a>
+
+            <div class="navbar-dropdown">
+              <UserLogin
+                class="dropdown-item"
+                v-for="user in users"
+                :key="user.id"
+                :user="user"
+              />
+              <hr class="navbar-divider" />
+              <RouterLink to="/login" class="dropdown-item has-text-grey-light">
+                Log in
+              </RouterLink>
+            </div>
             <div class="buttons">
               <a class="button is-primary">
                 <strong>Sign up</strong>
               </a>
-              <RouterLink to="/login" class="button is-light">
-                Log in
-              </RouterLink>
-              <button
-                class="button is-light is-active"
-                :class="{ 'is-focused': isCartOpen }"
-                @click="isCartOpen = !isCartOpen"
-              >
-                <span class="icon">
-                  <i class="fas fa-shopping-cart"> </i>
-                </span>
-              </button>
             </div>
+          </div>
+
+          <div class="navbar-item" v-else>
+            <p v-for="profile in currentUser" :key="profile.user.id">
+              {{ profile.user.name }}
+            </p>
+            <button class="button" @click="logOut()">LogOut</button>
+          </div>
+
+          <div class="buttons">
+            <button
+              class="button is-light is-active"
+              :class="{ 'is-focused': isCartOpen }"
+              @click="isCartOpen = !isCartOpen"
+            >
+              <span class="icon">
+                <i class="fas fa-shopping-cart"> </i>
+              </span>
+            </button>
           </div>
         </div>
       </div>
@@ -102,7 +133,7 @@ const isCartOpen = ref(false)
   </nav>
 
   <FlyoutPanel :is-open="isCartOpen">
-    <h1 class="title">Shopping Cart</h1>
+    <ShoppingCart />
   </FlyoutPanel>
 </template>
 <style scoped>
@@ -112,5 +143,8 @@ const isCartOpen = ref(false)
 }
 .icon-text {
   margin-right: -0.6rem;
+}
+.button.is-light.is-active {
+  margin-left: 0.5rem;
 }
 </style>

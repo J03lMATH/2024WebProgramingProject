@@ -1,0 +1,53 @@
+{
+  "items": [
+    {
+      "id": 1,
+      "name": "Joel Mathew",
+      "email": "joel04mathew@gmail.com",
+      "username": "J03l",
+      "password": "CoolPassword",
+      "age": 19,
+      "admin": true,
+      "image": "https://randomuser.me/api/portraits",
+      "address": {
+        "street": "1234 Elm St",
+        "city": "Springfield",
+        "state": "IL",
+        "zip": "62701"
+      }
+    },
+    {
+      "id": 2,
+      "name": "Jane Doe",
+      "email": "jane.doe@example.com",
+      "username": "JaneD",
+      "password": "SecurePass123",
+      "age": 30,
+      "admin": false,
+      "image": "https://randomuser.me/api/portraits/women/1.jpg",
+      "address": {
+        "street": "5678 Oak St",
+        "city": "Springfield",
+        "state": "IL",
+        "zip": "62702"
+      }
+    },
+    {
+      "id": 3,
+      "name": "John Smith",
+      "email": "john.smith@example.com",
+      "username": "JohnS",
+      "password": "AnotherPass456",
+      "age": 28,
+      "admin": false,
+      "image": "https://randomuser.me/api/portraits/men/2.jpg",
+      "address": {
+        "street": "9101 Pine St",
+        "city": "Springfield",
+        "state": "IL",
+        "zip": "62703"
+      }
+    }
+  ],
+  "total": 3
+}

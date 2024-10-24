@@ -1,6 +1,7 @@
 import data from '../data/tracks.json'
 import type { DataListEnvelope } from './dataEnvelope'
 
+// Define the User interface
 export function getAll(): DataListEnvelope<Track> {
   return {
     data: data.workouts,

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { Track } from '@/models/tracks'
+import { type Track } from '@/models/tracks'
 
 defineProps<{
-  tracks: Track
+  tracks: Track[]
 }>()
 </script>
 

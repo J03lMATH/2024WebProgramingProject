@@ -10,42 +10,6 @@ import { ref } from 'vue'
 import { getAll, type Track } from '@/models/tracks'
 const tracks = ref<Track[]>([])
 tracks.value = getAll().data
-
-//for the tracker component
-/*const tracks = ref([
-  {
-    id: 1,
-    date: '10/01/2023',
-    distance: 2.5 + ' miles',
-    duration: 30 + ' min',
-    calories: 200 + ' cal',
-    avgPace: 12 + ' mph',
-  },
-  {
-    id: 2,
-    date: '10/02/2023',
-    distance: 3.0 + ' miles',
-    duration: 35 + ' min',
-    calories: 250 + ' cal',
-    avgPace: 10 + ' mph',
-  },
-  {
-    id: 3,
-    date: '10/03/2023',
-    distance: 4.2 + ' miles',
-    duration: 50 + ' min',
-    calories: 300 + ' cal',
-    avgPace: 8 + ' mph',
-  },
-  {
-    id: 4,
-    date: '10/04/2023',
-    distance: 5.0 + ' miles',
-    duration: 60 + ' min',
-    calories: 350 + ' cal',
-    avgPace: 9 + ' mph',
-  },
-])*/
 </script>
 
 <template>

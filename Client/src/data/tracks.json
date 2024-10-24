@@ -8,7 +8,8 @@
       "distance": 2.5,
       "duration": 30,
       "calories": 200,
-      "avgPace": 12
+      "avgPace": 12,
+      "username": "J03l"
     },
     {
       "id": 2,
@@ -18,7 +19,8 @@
       "distance": 3.0,
       "duration": 35,
       "calories": 250,
-      "avgPace": 10
+      "avgPace": 10,
+      "username": "J03l"
     },
     {
       "id": 3,
@@ -28,7 +30,8 @@
       "distance": 4.2,
       "duration": 50,
       "calories": 300,
-      "avgPace": 8
+      "avgPace": 8,
+      "username": "JaneD"
     },
     {
       "id": 4,
@@ -38,7 +41,8 @@
       "distance": 5.0,
       "duration": 60,
       "calories": 350,
-      "avgPace": 9
+      "avgPace": 9,
+      "username": "JaneD"
     },
     {
       "id": 5,
@@ -48,7 +52,8 @@
       "distance": 6.0,
       "duration": 70,
       "calories": 400,
-      "avgPace": 8.5
+      "avgPace": 8.5,
+      "username": "JohnS"
     }
   ],
   "total": 5

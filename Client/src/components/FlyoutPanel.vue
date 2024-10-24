@@ -21,7 +21,7 @@ const props = defineProps<{
   box-shadow: -2px 0 5px rgba(0, 0, 0, 7);
   padding: 20px;
   z-index: 1000;
-  transform: translate(85%);
+  transform: translate(100%);
   transition: transform 0.3s ease-in-out;
 }
 

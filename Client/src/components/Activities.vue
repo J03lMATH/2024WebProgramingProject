@@ -1,124 +1,46 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { type Track } from '@/models/tracks'
+import { refUser } from '@/models/userData'
 
-const isOpen = ref(false)
+const currentUser = refUser()
+
+defineProps<{
+  tracks: Track[]
+}>()
 </script>
 
 <template>
-  <h1 class="title">My Activities</h1>
-  <div class="columns is-centered">
-    <div class="column is-half media">
-      <a
-        class="button is-info is-fullwidth"
-        :class="{ 'is-active': isOpen }"
-        @click="isOpen = !isOpen"
-      >
-        Add Workout
-      </a>
-      <form>
-        <div class="modal" :class="{ 'is-active': isOpen }">
-          <div class="modal-background"></div>
-          <div class="modal-card">
-            <header class="modal-card-head has-background-danger-bold">
-              <p class="modal-card-title has-text-text-45">Add Workout</p>
-              <button class="delete" aria-label="close"></button>
-            </header>
-
-            <section class="model-card-body has-background-text-bold">
-              <div class="field">
-                <label class="label has-text-text-45" for="title">Title</label>
-                <div class="control">
-                  <input
-                    type="text"
-                    class="input has-background-text-100 has-text-text-45"
-                    id="title"
-                  />
-                </div>
-              </div>
-              <div class="field">
-                <label class="label has-text-text-45" for="date">Date</label>
-                <div class="control">
-                  <input
-                    class="input has-background-text-100 has-text-text-45"
-                    type="date"
-                    id="date"
-                  />
-                </div>
-              </div>
-              <div class="field">
-                <label class="label has-text-text-45" for="type"
-                  >Type of Workout</label
-                >
-                <div class="select is-full-witdh">
-                  <select
-                    class="form-control has-background-text-100 has-text-text-45"
-                    id="type"
-                  >
-                    <option value="run">Run</option>
-                    <option value="bike">Bike</option>
-                    <option value="swim">Swim</option>
-                    <option value="walk">Walk</option>
-                    <option value="swim">Strength</option>
-                    <option value="swim">Hike</option>
-                  </select>
-                </div>
-              </div>
-              <div class="field">
-                <label class="label has-text-text-45" for="distance"
-                  >Distance</label
-                >
-                <div class="control">
-                  <input
-                    class="input has-background-text-100 has-text-text-45"
-                    type="number"
-                    id="distance"
-                    placeholder="by Feet"
-                  />
-                </div>
-              </div>
-              <div class="field">
-                <label class="label has-text-text-45" for="duration"
-                  >Duration</label
-                >
-                <div class="control">
-                  <input
-                    class="input has-background-text-100 has-text-text-45"
-                    type="number"
-                    id="duration"
-                    placeholder="by Minutes"
-                  />
-                </div>
-              </div>
-              <div class="field">
-                <label class="label has-text-text-45" for="calories"
-                  >Calories</label
-                >
-                <input
-                  type="number"
-                  class="input has-background-text-100 has-text-text-45"
-                  id="calories"
-                />
-              </div>
-              <div class="field">
-                <label class="label has-text-text-45" for="avgPace"
-                  >Average Pace</label
-                >
-                <input
-                  type="number"
-                  class="input has-background-text-100 has-text-text-45"
-                  id="avgPace"
-                  placeholder="by mph"
-                />
-              </div>
-            </section>
-
-            <footer class="modal-card-foot has-background-danger-bold">
-              <button class="button is-success">Save</button>
-              <button class="button">Cancel</button>
-            </footer>
-          </div>
+  <div v-for="profile in currentUser" :key="profile.user.id"></div>
+  <div class="box has-text-success has-background-grey-darker summary">
+    <div class="columns is-centered">
+      <h5 class="title is-5">{{ profile.tracks.date }}</h5>
+    </div>
+    <div class="columns is-multiline">
+      <div class="column is-half">
+        <div class="container">
+          <h3 class="subtitle is-3">{{ track.avgPace }} mph</h3>
+          <p>Avg Pace</p>
         </div>
-      </form>
+      </div>
+      <div class="column is-half">
+        <div class="container">
+          <h3 class="subtitle is-3">{{ track.distance }} ft</h3>
+          <p>Distance</p>
+        </div>
+      </div>
+      <div class="column is-half">
+        <div class="container">
+          <h3 class="subtitle is-3">{{ track.duration }} min</h3>
+          <p>Duration</p>
+        </div>
+      </div>
+      <div class="column is-half">
+        <div class="container">
+          <h3 class="subtitle is-3">{{ track.calories }} cal</h3>
+          <p>Calories</p>
+        </div>
+      </div>
     </div>
   </div>
 </template>
