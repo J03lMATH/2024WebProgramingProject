@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import { refUser } from '@/models/userData'
 
 const currentUser = refUser()
@@ -9,8 +8,8 @@ const currentUser = refUser()
   <div class="holders" v-for="profile in currentUser" :key="profile.user.id">
     <div
       class="media box is-half"
-      v-for="track in profile.user.tracks"
-      :key="track.id"
+      v-for="info in profile.user.infos"
+      :key="info.id"
     >
       <div class="media-left">
         <figure class="image is-64x64">
@@ -23,8 +22,8 @@ const currentUser = refUser()
             <strong>{{ profile.user.name }} </strong>
             <small class="indent">{{ profile.user.email }}</small>
             <br />
-            <strong> {{ track.title }}</strong>
-            <small class="indent"> {{ track.type }}</small>
+            <strong> {{ info.title }}</strong>
+            <small class="indent"> {{ info.type }}</small>
             <br />
             <br />
           </p>
@@ -32,39 +31,39 @@ const currentUser = refUser()
             <div class="columns is-multiline is-half">
               <div class="column is-half">
                 <div class="container">
-                  <h4 class="subtitle is-4">{{ track.avgPace }} mph</h4>
+                  <h4 class="subtitle is-4">{{ info.avgPace }} mph</h4>
                   <p>Avg Pace</p>
                 </div>
               </div>
               <div class="column is-half">
                 <div class="container">
-                  <h3 class="subtitle is-3">{{ track.distance }} ft</h3>
+                  <h3 class="subtitle is-3">{{ info.distance }} ft</h3>
                   <p>Distance</p>
                 </div>
               </div>
               <div class="column is-half">
                 <div class="container">
-                  <h3 class="subtitle is-3">{{ track.duration }} min</h3>
+                  <h3 class="subtitle is-3">{{ info.duration }} min</h3>
                   <p>Duration</p>
                 </div>
               </div>
               <div class="column is-one-half">
                 <div class="container">
-                  <h3 class="subtitle is-3">{{ track.calories }} cal</h3>
+                  <h3 class="subtitle is-3">{{ info.calories }} cal</h3>
                   <p>Calories</p>
                 </div>
               </div>
             </div>
             <div class="column is-half">
               <figure class="image">
-                <img :src="track.image" />
+                <img :src="info.image" />
               </figure>
             </div>
           </div>
         </div>
       </div>
       <div class="media-right">
-        <small> {{ track.date }}</small>
+        <small> {{ info.date }}</small>
         <button class="delete is-background-danger"></button>
       </div>
     </div>

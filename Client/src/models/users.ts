@@ -1,4 +1,5 @@
 import data from '../data/user.json'
+import type { Info } from './infos'
 import type { DataListEnvelope } from './dataEnvelope'
 
 // Define the User interface
@@ -7,18 +8,6 @@ export function getAll(): DataListEnvelope<User> {
     data: data.items,
     total: data.total,
   }
-}
-
-interface Track {
-  id: number
-  title: string
-  type: string
-  date: string
-  distance: number
-  duration: number
-  calories: number
-  avgPace: number
-  image: string
 }
 
 export interface User {
@@ -36,5 +25,5 @@ export interface User {
     state: string
     zip: string
   }
-  tracks: Track[]
+  infos: Info[]
 }

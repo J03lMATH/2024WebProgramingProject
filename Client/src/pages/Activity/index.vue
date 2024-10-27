@@ -1,6 +1,45 @@
 <script setup lang="ts">
 import Activities from '@/components/Activities.vue'
 import { ref } from 'vue'
+import { refUser, addInfo } from '@/models/userData'
+
+const currentUser = refUser()
+
+const title = ref('')
+const date = ref('')
+const type = ref('')
+const distance = ref(0)
+const duration = ref(0)
+const calories = ref(0)
+const avgPace = ref(0)
+const image = ref('')
+const userId = currentUser.value[0].user
+
+function addWorkout() {
+  const newInfo = {
+    id: Date.now(),
+    title: title.value,
+    type: type.value,
+    date: date.value,
+    distance: distance.value,
+    duration: duration.value,
+    calories: calories.value,
+    avgPace: avgPace.value,
+    image: image.value,
+  }
+
+  addInfo(userId, newInfo)
+
+  //reset form fields
+  title.value = ''
+  type.value = ''
+  date.value = ''
+  distance.value = 0
+  duration.value = 0
+  calories.value = 0
+  avgPace.value = 0
+  image.value = ''
+}
 
 const isOpen = ref(false)
 </script>
@@ -15,7 +54,7 @@ const isOpen = ref(false)
       >
         Add Workout
       </a>
-      <form>
+      <form @submit.prevent="addWorkout">
         <div class="modal" :class="{ 'is-active': isOpen }">
           <div class="modal-background"></div>
           <div class="modal-card">
@@ -32,6 +71,7 @@ const isOpen = ref(false)
                     type="text"
                     class="input has-background-text-100 has-text-text-45"
                     id="title"
+                    v-model="title"
                   />
                 </div>
               </div>
@@ -42,6 +82,7 @@ const isOpen = ref(false)
                     class="input has-background-text-100 has-text-text-45"
                     type="date"
                     id="date"
+                    v-model="date"
                   />
                 </div>
               </div>
@@ -53,6 +94,7 @@ const isOpen = ref(false)
                   <select
                     class="form-control has-background-text-100 has-text-text-45"
                     id="type"
+                    v-model="type"
                   >
                     <option value="run">Run</option>
                     <option value="bike">Bike</option>
@@ -72,6 +114,7 @@ const isOpen = ref(false)
                     class="input has-background-text-100 has-text-text-45"
                     type="number"
                     id="distance"
+                    v-model="distance"
                     placeholder="by Feet"
                   />
                 </div>
@@ -85,6 +128,7 @@ const isOpen = ref(false)
                     class="input has-background-text-100 has-text-text-45"
                     type="number"
                     id="duration"
+                    v-model="duration"
                     placeholder="by Minutes"
                   />
                 </div>
@@ -97,6 +141,7 @@ const isOpen = ref(false)
                   type="number"
                   class="input has-background-text-100 has-text-text-45"
                   id="calories"
+                  v-model="calories"
                 />
               </div>
               <div class="field">
@@ -107,20 +152,41 @@ const isOpen = ref(false)
                   type="number"
                   class="input has-background-text-100 has-text-text-45"
                   id="avgPace"
+                  v-model="avgPace"
                   placeholder="by mph"
                 />
+              </div>
+              <div class="field">
+                <label class="label has-text-text-45" for="image"
+                  >Image URL</label
+                >
+                <div class="control">
+                  <input
+                    type="text"
+                    class="input has-background-text-100 has-text-text-45"
+                    id="image"
+                    v-model="image"
+                  />
+                </div>
               </div>
             </section>
 
             <footer class="modal-card-foot has-background-danger-bold">
-              <button class="button is-success">Save</button>
-              <button class="button">Cancel</button>
+              <button
+                class="button is-success"
+                type="submit"
+                @click="isOpen = false"
+              >
+                Save
+              </button>
+              <button class="button" @click="isOpen = false">Cancel</button>
             </footer>
           </div>
         </div>
       </form>
     </div>
   </div>
+
   <Activities />
 </template>
 <style scoped></style>
