@@ -9,6 +9,18 @@ export function getAll(): DataListEnvelope<User> {
   }
 }
 
+interface Track {
+  id: number
+  title: string
+  type: string
+  date: string
+  distance: number
+  duration: number
+  calories: number
+  avgPace: number
+  image: string
+}
+
 export interface User {
   id: number
   name: string
@@ -24,4 +36,5 @@ export interface User {
     state: string
     zip: string
   }
+  tracks: Track[]
 }

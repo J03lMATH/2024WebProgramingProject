@@ -121,5 +121,6 @@ const isOpen = ref(false)
       </form>
     </div>
   </div>
+  <Activities />
 </template>
 <style scoped></style>

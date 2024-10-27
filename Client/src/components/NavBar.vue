@@ -110,6 +110,12 @@ const isCartOpen = ref(false)
           </div>
 
           <div class="navbar-item" v-else>
+            <img
+              v-for="profile in currentUser"
+              :key="profile.user.id"
+              :src="profile.user.image"
+            />
+
             <p v-for="profile in currentUser" :key="profile.user.id">
               {{ profile.user.name }}
             </p>
