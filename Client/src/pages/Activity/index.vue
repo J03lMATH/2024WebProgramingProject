@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Activities from '@/components/Activities.vue'
 import { refUser } from '@/models/userData'
-import CreateWorkout from '@/components/createWorkout.vue'
+import MakeWorkout from '@/components/MakeWorkout.vue'
 import { ref } from 'vue'
 import type { Info } from '@/models/infos'
 
@@ -21,7 +21,7 @@ function editWorkout(workout: Info) {
     </div>
   </div>
   <div class="forms" v-else>
-    <CreateWorkout :selectedWorkout="selectedWorkout" />
+    <MakeWorkout :selectedWorkout="selectedWorkout" />
   </div>
 
   <Activities @editWorkout="editWorkout" />
