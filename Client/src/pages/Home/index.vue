@@ -6,6 +6,7 @@ const currentUser = refUser()
 </script>
 
 <template>
+  <h1 class="title">User Statistics</h1>
   <div v-if="currentUser.length === 0">
     <div class="notification is-warning">
       <p>
@@ -16,7 +17,6 @@ const currentUser = refUser()
   </div>
 
   <div v-else>
-    <h1 class="title">User Statistics</h1>
     <div class="container">
       <div class="columns is-centered">
         <div class="column is-two-thirds">
