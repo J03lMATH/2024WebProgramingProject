@@ -18,20 +18,15 @@ function handleUserUpdated(updatedUser: User) {
 </script>
 
 <template>
-  <div v-for="admin in currentUser" :key="admin.user.id">
-    <div v-if="admin.user.admin === true">
-      <div class="notification is-warning">
-        <p>You must log in as Admin "Joel Mathew" to see this page.</p>
-      </div>
+  <div v-if="currentUser.length === 0">
+    <div class="notification is-warning">
+      <p>You must log in as Admin "Joel Mathew" to see this page.</p>
     </div>
-    <div v-else>
-      <h1 class="title">Admin</h1>
-      <UserForm
-        :selectedUser="selectedUser"
-        @user-updated="handleUserUpdated"
-      />
-      <UserList @editUser="editUser" />
-    </div>
+  </div>
+  <div v-else>
+    <h1 class="title">Admin</h1>
+    <UserForm :selectedUser="selectedUser" @user-updated="handleUserUpdated" />
+    <UserList @editUser="editUser" />
   </div>
 </template>
 
