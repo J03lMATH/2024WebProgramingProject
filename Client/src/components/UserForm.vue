@@ -175,8 +175,8 @@ const isOpen = ref(false)
                 <div class="control">
                   <input
                     type="checkbox"
-                    class="input has-background-text-100 has-text-text-45"
-                    id="calories"
+                    class="boxings"
+                    id="admin"
                     v-model="admin"
                   />
                 </div>
@@ -259,3 +259,12 @@ const isOpen = ref(false)
     </div>
   </div>
 </template>
+
+<style scoped>
+checkbox {
+  size: 5rem;
+}
+.boxings {
+  transform: scale();
+}
+</style>
