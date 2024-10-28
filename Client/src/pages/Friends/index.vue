@@ -1,13 +1,17 @@
 <script setup lang="ts">
 import { type User, getAll } from '@/models/users'
 import { ref } from 'vue'
-import { refUser, sortUsersInfoByDate } from '@/models/userData'
+import {
+  refUser,
+  sortUsersInfoByDateForFriends,
+  removeInfo,
+} from '@/models/userData'
 
 const currentUser = refUser()
 const users = ref<User[]>([])
 users.value = getAll().data
 
-const sortedUsers = sortUsersInfoByDate(users.value, false)
+const sortedUsers = sortUsersInfoByDateForFriends(users.value, false)
 </script>
 
 <template>
@@ -67,7 +71,7 @@ const sortedUsers = sortUsersInfoByDate(users.value, false)
                   </div>
                 </div>
               </div>
-              <div class="column is-half">
+              <div class="column is-two-fifths">
                 <figure class="image">
                   <img :src="info.image" />
                 </figure>
@@ -75,8 +79,18 @@ const sortedUsers = sortUsersInfoByDate(users.value, false)
             </div>
           </div>
         </div>
-        <div class="media-right">
-          <strong> {{ info.date }}</strong>
+
+        <div v-for="cur in currentUser" :key="cur.user.id">
+          <div class="media-right" v-if="cur.user.id === profile.id">
+            <strong>{{ info.date }}</strong>
+            <button
+              class="delete is-background-danger"
+              @click="removeInfo(cur.user, info.id)"
+            ></button>
+          </div>
+          <div class="media-right" v-else>
+            <strong> {{ info.date }}</strong>
+          </div>
         </div>
       </div>
     </div>
@@ -89,5 +103,15 @@ const sortedUsers = sortUsersInfoByDate(users.value, false)
 }
 .holders {
   margin-bottom: 1rem;
+}
+.delete {
+  margin-top: 0rem;
+  margin-left: 0.5rem;
+  width: 95%;
+}
+button {
+  margin-top: 0.5rem;
+  margin-left: 0.5rem;
+  width: 95%;
 }
 </style>

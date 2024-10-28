@@ -12,6 +12,12 @@ users.value = getAll().data
 
 const currentUser = refUser()
 
+function checkAdmin() {
+  if (currentUser.value.length === 0) {
+    return false
+  }
+  return currentUser.value[0].user.admin
+}
 const isOpen = ref(false)
 
 const isCartOpen = ref(false)
@@ -56,7 +62,10 @@ const isCartOpen = ref(false)
           </RouterLink>
           <RouterLink to="/friends" class="navbar-item">Friends</RouterLink>
 
-          <div class="navbar-item has-dropdown is-hoverable">
+          <div
+            class="navbar-item has-dropdown is-hoverable"
+            v-if="checkAdmin()"
+          >
             <a class="navbar-link"> Admin </a>
 
             <div class="navbar-dropdown">

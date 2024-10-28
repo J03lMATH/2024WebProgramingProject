@@ -1,12 +1,22 @@
 <script setup lang="ts">
-import { refUser, removeInfo, sortUsersInfoByDate } from '@/models/userData'
-import { ref } from 'vue'
-import { User } from '@/models/users'
+import { refUser, sortInfosByDate, removeInfo } from '@/models/userData'
+import { ref, computed } from 'vue'
+
 const currentUser = refUser()
+
+const sortedInfos = computed(() => {
+  return currentUser.value.map(userData => ({
+    ...userData,
+    user: {
+      ...userData.user,
+      infos: sortInfosByDate(userData.user.infos),
+    },
+  }))
+})
 </script>
 
 <template>
-  <div class="holders" v-for="profile in currentUser" :key="profile.user.id">
+  <div class="holders" v-for="profile in sortedInfos" :key="profile.user.id">
     <div
       class="media box is-half"
       v-for="info in profile.user.infos"

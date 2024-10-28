@@ -34,7 +34,7 @@ export function removeInfo(user: User, infoId: number) {
   return user
 }
 
-export function sortUsersInfoByDate(
+export function sortUsersInfoByDateForFriends(
   users: User[],
   ascending: boolean = true,
 ): User[] {
@@ -48,4 +48,10 @@ export function sortUsersInfoByDate(
 
     return user // Return the updated user with sorted infos
   })
+}
+
+export function sortInfosByDate(infos: Info[]) {
+  return infos.sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+  )
 }
