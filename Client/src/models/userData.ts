@@ -24,3 +24,12 @@ export function addInfo(user: User, newInfo: Info) {
   // Return the updated user
   return user
 }
+
+export function removeInfo(user: User, infoId: number) {
+  // Find the index of the Info object with the given id
+  const index = user.infos.findIndex(info => info.id === infoId)
+  // Remove the Info object from the user's infos array
+  user.infos.splice(index, 1)
+  // Return the updated user
+  return user
+}

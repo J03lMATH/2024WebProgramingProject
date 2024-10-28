@@ -8,11 +8,23 @@ import Calories from '@/components/trackbox/Calories.vue'
 import Tracker from '@/components/Tracker.vue'
 import { ref } from 'vue'
 import { getAll, type Track } from '@/models/tracks'
+import { refUser } from '@/models/userData'
 const tracks = ref<Track[]>([])
 tracks.value = getAll().data
+
+const currentUser = refUser()
 </script>
 
 <template>
+  <div v-if="currentUser.length === 0">
+    <div class="notification is-warning">
+      <p>You must log in to see Statistics</p>
+    </div>
+  </div>
+
+  <div v-else>
+    <h1 class="title">Statistics</h1>
+  </div>
   <div class="container">
     <div class="columns is-centered">
       <div class="column is-two-thirds">

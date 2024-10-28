@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { refUser } from '@/models/userData'
+import { refUser, removeInfo } from '@/models/userData'
 
 const currentUser = refUser()
 </script>
@@ -64,7 +64,10 @@ const currentUser = refUser()
       </div>
       <div class="media-right">
         <small> {{ info.date }}</small>
-        <button class="delete is-background-danger"></button>
+        <button
+          class="delete is-background-danger"
+          @click="removeInfo(profile.user, info.id)"
+        ></button>
       </div>
     </div>
   </div>
