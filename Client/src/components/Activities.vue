@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { refUser, sortInfosByDate, removeInfo } from '@/models/userData'
-import { ref, computed, defineEmits } from 'vue'
+import { computed, defineEmits } from 'vue'
 import type { Info } from '@/models/infos'
 
 const emit = defineEmits(['editWorkout'])
