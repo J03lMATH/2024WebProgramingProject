@@ -33,3 +33,19 @@ export function removeInfo(user: User, infoId: number) {
   // Return the updated user
   return user
 }
+
+export function sortUsersInfoByDate(
+  users: User[],
+  ascending: boolean = true,
+): User[] {
+  return users.map(user => {
+    // Sort the user's infos array by date
+    user.infos.sort((a, b) => {
+      const dateA = new Date(a.date).getTime()
+      const dateB = new Date(b.date).getTime()
+      return ascending ? dateA - dateB : dateB - dateA
+    })
+
+    return user // Return the updated user with sorted infos
+  })
+}

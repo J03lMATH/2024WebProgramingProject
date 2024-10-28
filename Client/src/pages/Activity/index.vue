@@ -67,6 +67,7 @@ function addWorkout() {
               <button
                 class="delete"
                 aria-label="close"
+                type="button"
                 @click="isOpen = false"
               ></button>
             </header>

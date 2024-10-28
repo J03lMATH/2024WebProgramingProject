@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { refUser, removeInfo } from '@/models/userData'
-
+import { refUser, removeInfo, sortUsersInfoByDate } from '@/models/userData'
+import { ref } from 'vue'
+import { User } from '@/models/users'
 const currentUser = refUser()
 </script>
 
@@ -31,7 +32,7 @@ const currentUser = refUser()
             <div class="columns is-multiline is-half">
               <div class="column is-half">
                 <div class="container">
-                  <h4 class="subtitle is-4">{{ info.avgPace }} mph</h4>
+                  <h3 class="subtitle is-3">{{ info.avgPace }} mph</h3>
                   <p>Avg Pace</p>
                 </div>
               </div>
