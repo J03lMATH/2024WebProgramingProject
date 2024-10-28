@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
 import NavBar from './components/NavBar.vue'
+import type { User } from './models/users'
+
+defineProps<{
+  user: User[]
+}>()
 </script>
 
 <template>

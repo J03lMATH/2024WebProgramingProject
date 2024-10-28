@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { type User } from '@/models/users'
 
 const username = ref('')
 const password = ref('')

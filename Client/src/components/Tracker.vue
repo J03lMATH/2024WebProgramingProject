@@ -1,42 +1,89 @@
 <script setup lang="ts">
-import { Track } from '@/models/track'
+import { computed } from 'vue'
+import { refUser, sortInfosByDate } from '@/models/userData'
 
-defineProps<{
-  tracks: Track
-}>()
+const currentUser = refUser()
+
+const sortedInfos = computed(() => {
+  return currentUser.value.map(userData => ({
+    ...userData,
+    user: {
+      ...userData.user,
+      infos: sortInfosByDate(userData.user.infos),
+    },
+  }))
+})
+
+const totalDistance = computed(() => {
+  return sortedInfos.value.reduce((total, userData) => {
+    return (
+      total +
+      userData.user.infos.reduce((userTotal, info) => {
+        return userTotal + (info.distance || 0)
+      }, 0)
+    )
+  }, 0)
+})
+const totalCalories = computed(() => {
+  return sortedInfos.value.reduce((total, userData) => {
+    return (
+      total +
+      userData.user.infos.reduce((userTotal, info) => {
+        return userTotal + (info.calories || 0)
+      }, 0)
+    )
+  }, 0)
+})
+const totalDuration = computed(() => {
+  return sortedInfos.value.reduce((total, userData) => {
+    return (
+      total +
+      userData.user.infos.reduce((userTotal, info) => {
+        return userTotal + (info.duration || 0)
+      }, 0)
+    )
+  }, 0)
+})
+
+const totalAvgPace = computed(() => {
+  return sortedInfos.value.reduce((total, userData) => {
+    return (
+      total +
+      userData.user.infos.reduce((userTotal, info) => {
+        return userTotal + (info.avgPace || 0)
+      }, 0)
+    )
+  }, 0)
+})
 </script>
 
 <template>
-  <div
-    class="box has-text-success has-background-grey-darker summary"
-    v-for="track in tracks"
-    :key="track.id"
-  >
+  <div class="box has-text-success has-background-grey-darker summary">
     <div class="columns is-centered">
-      <h5 class="title is-5">{{ track.date }}</h5>
+      <h5 class="title is-5">Total Stats</h5>
     </div>
     <div class="columns is-multiline">
       <div class="column is-half">
         <div class="container">
-          <h3 class="subtitle is-3">{{ track.avgPace }} mph</h3>
+          <h3 class="subtitle is-3">{{ totalAvgPace }} mph</h3>
           <p>Avg Pace</p>
         </div>
       </div>
       <div class="column is-half">
         <div class="container">
-          <h3 class="subtitle is-3">{{ track.distance }} ft</h3>
+          <h3 class="subtitle is-3">{{ totalDistance }} ft</h3>
           <p>Distance</p>
         </div>
       </div>
       <div class="column is-half">
         <div class="container">
-          <h3 class="subtitle is-3">{{ track.duration }} min</h3>
+          <h3 class="subtitle is-3">{{ totalDuration }} min</h3>
           <p>Duration</p>
         </div>
       </div>
       <div class="column is-half">
         <div class="container">
-          <h3 class="subtitle is-3">{{ track.calories }} cal</h3>
+          <h3 class="subtitle is-3">{{ totalCalories }} cal</h3>
           <p>Calories</p>
         </div>
       </div>

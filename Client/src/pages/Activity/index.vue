@@ -1,8 +1,34 @@
 <script setup lang="ts">
 import Activities from '@/components/Activities.vue'
+import { refUser } from '@/models/userData'
+import CreateWorkout from '@/components/createWorkout.vue'
+import { ref } from 'vue'
+import type { Info } from '@/models/infos'
+
+const currentUser = refUser()
+const selectedWorkout = ref<Info | null>(null)
+
+function editWorkout(workout: Info) {
+  selectedWorkout.value = workout
+}
 </script>
+
 <template>
-  <Activities />
+  <h1 class="title">My Activities</h1>
+  <div v-if="currentUser.length === 0">
+    <div class="notification is-warning">
+      <p>You must log in to add workouts and see your workouts.</p>
+    </div>
+  </div>
+  <div class="forms" v-else>
+    <CreateWorkout :selectedWorkout="selectedWorkout" />
+  </div>
+
+  <Activities @editWorkout="editWorkout" />
 </template>
 
-<style scoped></style>
+<style scoped>
+.forms {
+  margin-bottom: 1rem;
+}
+</style>

@@ -1,124 +1,95 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { refUser, sortInfosByDate, removeInfo } from '@/models/userData'
+import { computed, defineEmits } from 'vue'
+import type { Info } from '@/models/infos'
 
-const isOpen = ref(false)
+const emit = defineEmits(['editWorkout'])
+const currentUser = refUser()
+
+const sortedInfos = computed(() => {
+  return currentUser.value.map(userData => ({
+    ...userData,
+    user: {
+      ...userData.user,
+      infos: sortInfosByDate(userData.user.infos),
+    },
+  }))
+})
+
+function emitEditWorkout(info: Info) {
+  emit('editWorkout', info)
+}
 </script>
 
 <template>
-  <h1 class="title">My Activities</h1>
-  <div class="columns is-centered">
-    <div class="column is-half media">
-      <a
-        class="button is-info is-fullwidth"
-        :class="{ 'is-active': isOpen }"
-        @click="isOpen = !isOpen"
-      >
-        Add Workout
-      </a>
-      <form>
-        <div class="modal" :class="{ 'is-active': isOpen }">
-          <div class="modal-background"></div>
-          <div class="modal-card">
-            <header class="modal-card-head has-background-danger-bold">
-              <p class="modal-card-title has-text-text-45">Add Workout</p>
-              <button class="delete" aria-label="close"></button>
-            </header>
+  <div class="holders" v-for="profile in sortedInfos" :key="profile.user.id">
+    <div
+      class="media box is-half"
+      v-for="info in profile.user.infos"
+      :key="info.id"
+    >
+      <div class="media-left">
+        <figure class="image is-64x64">
+          <img class="is-rounded" :src="profile.user.image" alt="Avatar" />
+        </figure>
+      </div>
+      <div class="media-content">
+        <div class="content">
+          <p>
+            <strong>{{ profile.user.name }} </strong>
+            <small class="indent">{{ profile.user.email }}</small>
+            <br />
+            <strong> {{ info.title }}</strong>
+            <small class="indent"> {{ info.type }}</small>
+            <small class="indent"> {{ info.date }}</small>
 
-            <section class="model-card-body has-background-text-bold">
-              <div class="field">
-                <label class="label has-text-text-45" for="title">Title</label>
-                <div class="control">
-                  <input
-                    type="text"
-                    class="input has-background-text-100 has-text-text-45"
-                    id="title"
-                  />
+            <br />
+            <br />
+          </p>
+          <div class="columns">
+            <div class="columns is-multiline is-half">
+              <div class="column is-half">
+                <div class="container">
+                  <h3 class="subtitle is-3">{{ info.avgPace }} mph</h3>
+                  <p>Avg Pace</p>
                 </div>
               </div>
-              <div class="field">
-                <label class="label has-text-text-45" for="date">Date</label>
-                <div class="control">
-                  <input
-                    class="input has-background-text-100 has-text-text-45"
-                    type="date"
-                    id="date"
-                  />
+              <div class="column is-half">
+                <div class="container">
+                  <h3 class="subtitle is-3">{{ info.distance }} ft</h3>
+                  <p>Distance</p>
                 </div>
               </div>
-              <div class="field">
-                <label class="label has-text-text-45" for="type"
-                  >Type of Workout</label
-                >
-                <div class="select is-full-witdh">
-                  <select
-                    class="form-control has-background-text-100 has-text-text-45"
-                    id="type"
-                  >
-                    <option value="run">Run</option>
-                    <option value="bike">Bike</option>
-                    <option value="swim">Swim</option>
-                    <option value="walk">Walk</option>
-                    <option value="swim">Strength</option>
-                    <option value="swim">Hike</option>
-                  </select>
+              <div class="column is-half">
+                <div class="container">
+                  <h3 class="subtitle is-3">{{ info.duration }} min</h3>
+                  <p>Duration</p>
                 </div>
               </div>
-              <div class="field">
-                <label class="label has-text-text-45" for="distance"
-                  >Distance</label
-                >
-                <div class="control">
-                  <input
-                    class="input has-background-text-100 has-text-text-45"
-                    type="number"
-                    id="distance"
-                    placeholder="by Feet"
-                  />
+              <div class="column is-one-half">
+                <div class="container">
+                  <h3 class="subtitle is-3">{{ info.calories }} cal</h3>
+                  <p>Calories</p>
                 </div>
               </div>
-              <div class="field">
-                <label class="label has-text-text-45" for="duration"
-                  >Duration</label
-                >
-                <div class="control">
-                  <input
-                    class="input has-background-text-100 has-text-text-45"
-                    type="number"
-                    id="duration"
-                    placeholder="by Minutes"
-                  />
-                </div>
-              </div>
-              <div class="field">
-                <label class="label has-text-text-45" for="calories"
-                  >Calories</label
-                >
-                <input
-                  type="number"
-                  class="input has-background-text-100 has-text-text-45"
-                  id="calories"
-                />
-              </div>
-              <div class="field">
-                <label class="label has-text-text-45" for="avgPace"
-                  >Average Pace</label
-                >
-                <input
-                  type="number"
-                  class="input has-background-text-100 has-text-text-45"
-                  id="avgPace"
-                  placeholder="by mph"
-                />
-              </div>
-            </section>
-
-            <footer class="modal-card-foot has-background-danger-bold">
-              <button class="button is-success">Save</button>
-              <button class="button">Cancel</button>
-            </footer>
+            </div>
+            <div class="column is-half">
+              <figure class="image">
+                <img :src="info.image" />
+              </figure>
+            </div>
           </div>
         </div>
-      </form>
+      </div>
+      <div class="media-right">
+        <div class="columns">
+          <button class="edit" @click="emitEditWorkout(info)">Edit</button>
+          <button
+            class="delete is-background-danger"
+            @click="removeInfo(profile.user, info.id)"
+          ></button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -150,5 +121,17 @@ button {
 
 select {
   margin-left: 0.5rem;
+}
+.indent {
+  margin-left: 0.5rem;
+}
+
+.delete {
+  margin-top: 0rem;
+  margin-left: 0.5rem;
+  width: 100%;
+}
+.holders {
+  margin-bottom: 1rem;
 }
 </style>
