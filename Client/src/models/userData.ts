@@ -25,6 +25,15 @@ export function addInfo(user: User, newInfo: Info) {
   return user
 }
 
+export function updateInfo(user: User, updatedInfo: Info) {
+  // Find the index of the Info object with the given id
+  const index = user.infos.findIndex(info => info.id === updatedInfo.id)
+  // Replace the Info object at the index with the updated Info object
+  user.infos[index] = updatedInfo
+  // Return the updated user
+  return user
+}
+
 export function removeInfo(user: User, infoId: number) {
   // Find the index of the Info object with the given id
   const index = user.infos.findIndex(info => info.id === infoId)
