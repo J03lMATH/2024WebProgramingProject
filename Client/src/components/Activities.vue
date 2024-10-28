@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { refUser, sortInfosByDate, removeInfo } from '@/models/userData'
-import { ref, computed } from 'vue'
+import { ref, computed, defineEmits } from 'vue'
+import type { Info } from '@/models/infos'
 
+const emit = defineEmits(['editWorkout'])
 const currentUser = refUser()
 
 const sortedInfos = computed(() => {
@@ -13,6 +15,10 @@ const sortedInfos = computed(() => {
     },
   }))
 })
+
+function emitEditWorkout(info: Info) {
+  emit('editWorkout', info)
+}
 </script>
 
 <template>
@@ -35,6 +41,8 @@ const sortedInfos = computed(() => {
             <br />
             <strong> {{ info.title }}</strong>
             <small class="indent"> {{ info.type }}</small>
+            <small class="indent"> {{ info.date }}</small>
+
             <br />
             <br />
           </p>
@@ -74,11 +82,13 @@ const sortedInfos = computed(() => {
         </div>
       </div>
       <div class="media-right">
-        <small> {{ info.date }}</small>
-        <button
-          class="delete is-background-danger"
-          @click="removeInfo(profile.user, info.id)"
-        ></button>
+        <div class="columns">
+          <button class="edit" @click="emitEditWorkout(info)">Edit</button>
+          <button
+            class="delete is-background-danger"
+            @click="removeInfo(profile.user, info.id)"
+          ></button>
+        </div>
       </div>
     </div>
   </div>
@@ -119,7 +129,7 @@ select {
 .delete {
   margin-top: 0rem;
   margin-left: 0.5rem;
-  width: 95%;
+  width: 100%;
 }
 .holders {
   margin-bottom: 1rem;
