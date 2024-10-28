@@ -50,3 +50,9 @@ function deleteUser(id: number) {
     </table>
   </div>
 </template>
+
+<style scoped>
+button {
+  margin-right: 0.5rem;
+}
+</style>
