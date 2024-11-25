@@ -1,6 +1,14 @@
 const model = require("../model/products");
 const express = require("express");
 const app = express.Router();
+
+/* Four ways to send data to the server:
+ * 1. Query String
+ * 2. URL Parameters
+ * 3. Headers
+ * 4. Body
+ */
+
 app
   .get("/", (req, res) => {
     res.send(model.getAll());
