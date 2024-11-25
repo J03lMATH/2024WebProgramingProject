@@ -1,0 +1,20 @@
+###
+GET http://localhost:3000/products
+
+###
+GET http://localhost:3000/products/30
+
+###
+DELETE http://localhost:3000/products/1
+
+###
+POST http://localhost:3000/products
+Content-Type: application/json
+
+{
+    "firstName": "Joel",
+    "lastName": "Mathew",
+    "age": 20,
+    "email": "mathewj10@newpaltz.edu",
+    "password": "123456"
+}
