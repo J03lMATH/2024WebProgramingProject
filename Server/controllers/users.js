@@ -1,13 +1,13 @@
-const model = require("../model/users.json");
+const model = require("../model/users");
 const express = require("express");
 const app = express.Router();
 app
   .get("/", (req, res) => {
-    res.send(model.items);
+    res.send(model.getAll());
   })
   .get("/:id", (req, res) => {
     const id = req.params.id;
-    const user = model.get(id);
+    const user = model.get(+id);
     res.send(user);
   })
   .post("/", (req, res) => {
@@ -16,11 +16,11 @@ app
   })
   .patch("/:id", (req, res) => {
     const id = req.params.id;
-    const user = model.update(id, req.body);
+    const user = model.update(+id, req.body);
     res.send(user);
   })
   .delete("/:id", (req, res) => {
     const id = req.params.id;
-    const ret = model.remove(id);
+    const ret = model.remove(+id);
   });
 module.exports = app;

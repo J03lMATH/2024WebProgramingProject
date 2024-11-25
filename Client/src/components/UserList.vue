@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { removeUser } from '@/models/userData'
 import { ref, defineEmits } from 'vue'
-import { getAll, type User } from '@/models/users'
+import { getAll, type User } from '@/models/user'
 
 const users = ref<User[]>([])
 users.value = getAll().data

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
 import NavBar from './components/NavBar.vue'
-import type { User } from './models/users'
+import type { User } from './models/user'
 
 defineProps<{
   user: User[]

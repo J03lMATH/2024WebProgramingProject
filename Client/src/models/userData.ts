@@ -1,5 +1,5 @@
 import { ref } from 'vue'
-import type { User } from './users'
+import type { User } from './user'
 import type { Info } from './infos'
 
 export interface UserData {

@@ -4,7 +4,7 @@ import { RouterLink } from 'vue-router'
 import FlyoutPanel from '@/components/FlyoutPanel.vue'
 import ShoppingCart from '@/components/ShoppingCart.vue'
 import { refUser, logOut } from '@/models/userData'
-import { getAll, type User } from '@/models/users'
+import { getAll, type User } from '@/models/user'
 import UserLogin from '@/components/UserLogin.vue'
 
 const users = ref<User[]>([])

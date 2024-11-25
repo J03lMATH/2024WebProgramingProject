@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type User, getAll } from '@/models/users'
+import { type User, getAll } from '@/models/user'
 import { ref } from 'vue'
 import {
   refUser,

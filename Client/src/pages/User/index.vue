@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import { refUser } from '@/models/userData'
 import UserList from '@/components/UserList.vue'
 import UserForm from '@/components/UserForm.vue'
-import type { User } from '@/models/users'
+import type { User } from '@/models/user'
 
 const currentUser = refUser()
 const selectedUser = ref<User | null>(null)
