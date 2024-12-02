@@ -7,18 +7,33 @@ const PORT = 3000;
 
 // Middleware
 app.use(express.json());
+app.use(express.static(__dirname + "/dist"));
 
 //Controllers
 app
-  .get("/", (req, res) => {
+  .get("/", (req, res, next) => {
     res.send("Hello World");
   })
-  .get("/about", (req, res) => {
+  .get("/about", (req, res, next) => {
     res.send("About Us");
   })
-  .use("/users", userController)
-  .use("/products", productController);
+  .use("/api/v1/users", userController)
+  .use("/api/v1/products", productController)
 
-app.listen(PORT, () => {
+  .get("*", (req, res, next) => {
+    res.sendFile(__dirname + "/dist/index.html");
+  });
+
+console.log("Step #1");
+app.listen(PORT, (err, data) => {
+  console.log("Step #2");
   console.log("Server is running at http://localhost:" + PORT);
 });
+console.log("Step #3");
+
+/*  The 4 types of async methods
+    1. Node Style Callbacks
+    2. Pipelines
+    3. Promises
+    4. Async/Await
+*/
