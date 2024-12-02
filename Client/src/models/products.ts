@@ -1,10 +1,11 @@
-import data from '../data/products.json'
+//import data from '../data/products.json'
 import type { DataListEnvelope } from './dataEnvelope'
-export function getAll(): DataListEnvelope<Product> {
-  return {
-    data: data.items,
-    total: data.total,
-  }
+import { restApi } from './myFetch'
+
+export async function getAll() {
+  return restApi<DataListEnvelope<Product>>(
+    'http://localhost:3000/api/v1/products',
+  )
 }
 interface Review {
   rating: number

@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import { getAll, type Product } from '@/models/products'
 import ProductCard from '@/components/ProductCard.vue'
 const products = ref<Product[]>([])
-products.value = getAll().data
+getAll().then(data => (products.value = data.data))
 </script>
 <template>
   <div class="shelf">
