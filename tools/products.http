@@ -12,11 +12,11 @@ POST http://localhost:3000/api/v1/products
 Content-Type: application/json
 
 {
-    "title": "Delivery Drone",
-    "price": 1000,
-    "description": "A drone that delivers packages to your door",
-    "thumbnail": "https://cdn.pixabay.com/photo/2016/03/09/09/22/delivery-1245778_960_720.jpg",
-    "category": "drones"
+    "title": "Muscle Milk",
+    "price": 10,
+    "description": "A pwoder that istanly gives you muscles",
+    "thumbnail": "https://jymsupplementscience.com/cdn/shop/files/CCCStoreImage_2lb_1200x1200_Minified_1024x1024.png?v=1699892869",
+    "category": "powder"
 }
 
 ###

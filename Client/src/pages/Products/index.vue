@@ -6,6 +6,9 @@ const products = ref<Product[]>([])
 getAll().then(data => (products.value = data.data))
 </script>
 <template>
+  <div>
+    <h1>This is just for testing</h1>
+  </div>
   <div class="shelf">
     <ProductCard
       v-for="product in products"
