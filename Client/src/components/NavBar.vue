@@ -70,9 +70,6 @@ const isCartOpen = ref(false)
 
             <div class="navbar-dropdown">
               <RouterLink to="/user" class="navbar-item"> User </RouterLink>
-              <RouterLink to="/noFrame" class="navbar-item">
-                No Frame
-              </RouterLink>
             </div>
           </div>
         </div>

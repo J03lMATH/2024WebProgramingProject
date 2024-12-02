@@ -6,6 +6,14 @@ import UserForm from '@/components/UserForm.vue'
 import type { User } from '@/models/user'
 
 const currentUser = refUser()
+
+const checkAdmin = () => {
+  if (currentUser.value.length === 0) {
+    return false
+  }
+  return currentUser.value[0].user.admin
+}
+
 const selectedUser = ref<User | null>(null)
 
 function editUser(user: User) {
@@ -18,7 +26,7 @@ function handleUserUpdated(updatedUser: User) {
 </script>
 
 <template>
-  <div v-if="currentUser.length === 0">
+  <div v-if="!checkAdmin()">
     <div class="notification is-warning">
       <p>You must log in as Admin "Joel Mathew" to see this page.</p>
     </div>
