@@ -1,0 +1,40 @@
+###
+GET http://localhost:3000/api/v1/users
+
+###
+GET http://localhost:3000/api/v1/users/1
+
+###
+DELETE http://localhost:3000/api/v1/users/3
+
+###
+POST http://localhost:3000/api/v1/users
+Content-Type: application/json
+
+{
+    "name": "Will Solace",
+    "email": "docSunshine@gmail.com",
+    "username": "Doctor Sunshine",
+    "password": "deathboy",
+    "age": 23,
+    "admin": false,
+    "image": "https://i.pinimg.com/736x/4b/a2/21/4ba221f952bb0cb94e0cfd461a04948a.jpg",
+    "address": {
+        "street": "1234 Apollo Way",
+        "city": "New York",
+        "state": "NY",
+        "zip": "10001"
+    }
+}
+
+###
+PATCH http://localhost:3000/api/v1/users/2
+Content-Type: application/json
+{
+    "name": "Sarah Sue",
+}
+
+###
+POST http://localhost:3000/api/v1/users/seed
+
+

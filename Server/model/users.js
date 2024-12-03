@@ -1,5 +1,7 @@
 /** @type {{ items: User[] }} */
 const data = require("../data/users.json");
+const { getConnection } = require("./supabase");
+const conn = getConnection();
 
 /**
  * @template T
@@ -8,7 +10,7 @@ const data = require("../data/users.json");
  */
 
 /**
- * @typedef {import("../../Client/src/models/users").User} User
+ * @typedef {import("../../Client/src/models/user").User} User
  */
 
 /**
@@ -16,10 +18,14 @@ const data = require("../data/users.json");
  * @returns {Promise<DataListEnvelope<User>>}
  */
 async function getAll() {
+  const { data, error, count } = await conn
+    .from("users")
+    .select("*", { count: "estimated" });
   return {
-    isSuccess: true,
-    data: data.items,
-    total: data.items.length,
+    isSuccess: !error,
+    message: error?.message,
+    data: data,
+    total: count,
   };
 }
 
@@ -29,10 +35,15 @@ async function getAll() {
  * @returns {Promise<DataEnvelope<User>>}
  */
 async function get(id) {
-  const item = data.items.find((user) => user.id == id);
+  const { data, error } = await conn
+    .from("users")
+    .select("*, infos(*)")
+    .eq("id", id)
+    .single();
   return {
-    isSuccess: !!item,
-    data: item,
+    isSuccess: !error,
+    message: error?.message,
+    data: data,
   };
 }
 
@@ -42,12 +53,67 @@ async function get(id) {
  * @returns {Promise<DataEnvelope<User>>}
  */
 async function add(user) {
-  user.id = data.items.reduce((prev, x) => (x.id > prev ? x.id : prev), 0) + 1;
-  data.items.push(user);
+  const { data, error } = await conn
+    .from("users")
+    .insert([
+      {
+        name: user.name,
+        email: user.email,
+        username: user.username,
+        password: user.password,
+        age: user.age,
+        admin: user.admin,
+        image: user.image,
+        address: user.address,
+      },
+    ])
+    .select("*")
+    .single();
+
+  console.log("Data:", data);
+  console.log("Error:", error);
+  if (user.infos?.length) {
+    await conn;
+    try {
+      const infosInsert = await conn
+        .from("infos")
+        .insert(
+          user.infos.map((info) => ({
+            userID: data.id,
+            title: info.title,
+            type: info.type,
+            date: info.date,
+            distance: info.distance,
+            duration: info.duration,
+            calories: info.calories,
+            avgPace: info.avgPace,
+            image: info.image,
+          }))
+        )
+        .select("*");
+
+      if (infosInsert.error) {
+        throw infosInsert.error;
+      }
+    } catch (err) {
+      return {
+        isSuccess: false,
+        message: `Error adding infos: ${err.message}`,
+        data: null,
+      };
+    }
+  }
   return {
-    isSuccess: true,
-    data: user,
+    isSuccess: !error,
+    message: error?.message,
+    data: data,
   };
+}
+
+async function seed() {
+  for (const user of data.items) {
+    await add(user);
+  }
 }
 
 /**
@@ -57,11 +123,23 @@ async function add(user) {
  * @returns {Promise<DataEnvelope<User>>}
  */
 async function update(id, user) {
-  const userToUpdate = get(id);
-  Object.assign(userToUpdate, user);
+  const { data, error } = await conn
+    .from("users")
+    .update({
+      name: user.name,
+      email: user.email,
+      password: user.password,
+      age: user.age,
+      admin: user.admin,
+      image: user.image,
+      address: user.address,
+    })
+    .eq("id", id)
+    .single();
   return {
-    isSuccess: true,
-    data: userToUpdate,
+    isSuccess: !error,
+    message: error?.message,
+    data: data,
   };
 }
 
@@ -71,16 +149,16 @@ async function update(id, user) {
  * @returns {Promise<DataEnvelope<number>>}
  */
 async function remove(id) {
-  const itemIndex = data.items.findIndex((user) => user.id == id);
-  if (itemIndex === -1)
-    throw {
-      isSuccess: false,
-      message: "Item not found",
-      data: id,
-      status: 404,
-    };
-  data.items.splice(itemIndex, 1);
-  return { isSuccess: true, message: "Item deleted", data: id };
+  const { data, error } = await conn
+    .from("users")
+    .delete()
+    .eq("id", id)
+    .single();
+  return {
+    isSuccess: !error,
+    message: error?.message,
+    data: data,
+  };
 }
 
 module.exports = {
@@ -89,4 +167,5 @@ module.exports = {
   add,
   update,
   remove,
+  seed,
 };

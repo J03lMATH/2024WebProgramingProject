@@ -16,7 +16,18 @@ Content-Type: application/json
     "price": 10,
     "description": "A pwoder that istanly gives you muscles",
     "thumbnail": "https://jymsupplementscience.com/cdn/shop/files/CCCStoreImage_2lb_1200x1200_Minified_1024x1024.png?v=1699892869",
-    "category": "powder"
+    "category": "powder",
+    "rating": 5,
+    "tags": ["weapon", "missile", "destruction"],
+    "weight": 1000,
+    "dimensions": {
+        "length": 10,
+        "width": 10,
+        "height": 10
+    },
+    "returnPolicy": "You can return the product within 30 days of purchase"
+    ,"minimumOrderQuantity": 1,
+    "images": []
 }
 
 ###
@@ -26,3 +37,6 @@ Content-Type: application/json
     "price": 1100,
     "description": "A drone that delivers you treasures to your door"
 }
+
+###
+POST http://localhost:3000/api/v1/products/seed

@@ -8,7 +8,10 @@ import { getAll, type User } from '@/models/user'
 import UserLogin from '@/components/UserLogin.vue'
 
 const users = ref<User[]>([])
-users.value = getAll().data
+
+getAll().then(data => {
+  users.value = data.data
+})
 
 const currentUser = refUser()
 
