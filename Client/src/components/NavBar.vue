@@ -3,8 +3,8 @@ import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import FlyoutPanel from '@/components/FlyoutPanel.vue'
 import ShoppingCart from '@/components/ShoppingCart.vue'
-import { refUser, logOut } from '@/models/userData'
-import { getAll, type User } from '@/models/user'
+//import { refUser, logOut } from '@/models/userData'
+import { getAll, refsUser, logOutbutt, type User } from '@/models/user'
 import UserLogin from '@/components/UserLogin.vue'
 
 const users = ref<User[]>([])
@@ -13,13 +13,10 @@ getAll().then(data => {
   users.value = data.data
 })
 
-const currentUser = refUser()
+const currUser = refsUser()
 
 function checkAdmin() {
-  if (currentUser.value.length === 0) {
-    return false
-  }
-  return currentUser.value[0].user.admin
+  return currUser.value?.admin
 }
 const isOpen = ref(false)
 
@@ -95,7 +92,7 @@ const isCartOpen = ref(false)
 
           <div
             class="navbar-item has-dropdown is-hoverable"
-            v-if="currentUser.length === 0"
+            v-if="currUser === null"
           >
             <a class="navbar-link">Login</a>
 
@@ -119,16 +116,12 @@ const isCartOpen = ref(false)
           </div>
 
           <div class="navbar-item" v-else>
-            <img
-              v-for="profile in currentUser"
-              :key="profile.user.id"
-              :src="profile.user.image"
-            />
+            <img v-if="currUser" :key="currUser.id" :src="currUser.image" />
 
-            <p v-for="profile in currentUser" :key="profile.user.id">
-              {{ profile.user.name }}
+            <p v-if="currUser">
+              {{ currUser.name }}
             </p>
-            <button class="button" @click="logOut()">LogOut</button>
+            <button class="button" @click="logOutbutt()">LogOut</button>
           </div>
 
           <div class="buttons">

@@ -1,7 +1,14 @@
 /** @type {{ items: User[] }} */
 const data = require("../data/users.json");
+const supabase = require("./supabase");
 const { getConnection } = require("./supabase");
 const conn = getConnection();
+const {
+  signIn,
+  signOut,
+  getCurrentUser,
+  verifyTokenAsync,
+} = require("./supabase");
 
 /**
  * @template T
@@ -72,37 +79,26 @@ async function add(user) {
 
   console.log("Data:", data);
   console.log("Error:", error);
+  console.log("Infos:", user.infos.length);
   if (user.infos?.length) {
-    await conn;
-    try {
-      const infosInsert = await conn
-        .from("infos")
-        .insert(
-          user.infos.map((info) => ({
-            userID: data.id,
-            title: info.title,
-            type: info.type,
-            date: info.date,
-            distance: info.distance,
-            duration: info.duration,
-            calories: info.calories,
-            avgPace: info.avgPace,
-            image: info.image,
-          }))
-        )
-        .select("*");
-
-      if (infosInsert.error) {
-        throw infosInsert.error;
-      }
-    } catch (err) {
-      return {
-        isSuccess: false,
-        message: `Error adding infos: ${err.message}`,
-        data: null,
-      };
-    }
+    await conn
+      .from("infos")
+      .insert(
+        user.infos.map((info) => ({
+          userId: data.id,
+          title: info.title,
+          type: info.type,
+          date: info.date,
+          distance: info.distance,
+          duration: info.duration,
+          calories: info.calories,
+          avgPace: info.avgPace,
+          image: info.image,
+        }))
+      )
+      .select("*");
   }
+
   return {
     isSuccess: !error,
     message: error?.message,
@@ -161,6 +157,73 @@ async function remove(id) {
   };
 }
 
+/**
+ * login a user
+ 
+ * 
+ * @param {string} email
+ * @param {string} password
+ * @returns {Promise<DataEnvelope<User>>}
+ */
+async function login(email, password) {
+  const { user, error } = await signIn(email, password);
+  if (error) {
+    console.error("Login Error:", error.message);
+  } else {
+    console.log("Login Successful", user);
+  }
+  return {
+    isSuccess: !error,
+    message: error?.message,
+    data: user,
+  };
+}
+
+/**
+ * logout a user
+ * @returns {Promise<{isSuccess: boolean, message: string}>}
+ */
+async function logout() {
+  const { error } = await signOut();
+  if (error) {
+    console.error("Logout Error:", error.message);
+  } else {
+    console.log("Logout Successful");
+  }
+  return {
+    isSuccess: !error,
+    message: error?.message,
+  };
+}
+
+async function fetchCurrentUser() {
+  const { data: user, error } = await getCurrentUser();
+  if (error) {
+    console.error("Fetch Current User Error:", error.message);
+  } else {
+    console.log("Fetch Current User Successful", user);
+  }
+  return {
+    isSuccess: !error,
+    message: error?.message,
+    data: user,
+  };
+}
+
+async function verifyToken(token) {
+  const { user, error } = await verifyTokenAsync(token);
+  if (error) {
+    console.error("Verify Token Error:", error.message);
+  } else {
+    console.log("Verify Token Successful", user);
+  }
+  return {
+    isSuccess: !error,
+    message: error?.message,
+    data: user,
+  };
+}
+
 module.exports = {
   getAll,
   get,
@@ -168,4 +231,8 @@ module.exports = {
   update,
   remove,
   seed,
+  login,
+  logout,
+  fetchCurrentUser,
+  verifyToken,
 };

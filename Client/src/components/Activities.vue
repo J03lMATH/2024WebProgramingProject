@@ -1,19 +1,16 @@
 <script setup lang="ts">
-import { refUser, sortInfosByDate, removeInfo } from '@/models/userData'
-import { computed, defineEmits } from 'vue'
-import type { Info } from '@/models/infos'
+import { refsUser } from '@/models/user'
+import { defineEmits, ref } from 'vue'
+import { type Info, getByUserId, getAll } from '@/models/infos'
 
 const emit = defineEmits(['editWorkout'])
-const currentUser = refUser()
 
-const sortedInfos = computed(() => {
-  return currentUser.value.map(userData => ({
-    ...userData,
-    user: {
-      ...userData.user,
-      infos: sortInfosByDate(userData.user.infos),
-    },
-  }))
+const currUser = refsUser()
+
+const information = ref<Info[]>([])
+
+getAll().then(data => {
+  information.value = data.data
 })
 
 function emitEditWorkout(info: Info) {
@@ -22,22 +19,24 @@ function emitEditWorkout(info: Info) {
 </script>
 
 <template>
-  <div class="holders" v-for="profile in sortedInfos" :key="profile.user.id">
-    <div
-      class="media box is-half"
-      v-for="info in profile.user.infos"
-      :key="info.id"
-    >
+  <div v-if="currUser">
+    <h1>{{ currUser.name }}</h1>
+  </div>
+  <div v-if="information">
+    <h1>{{ information }}</h1>
+  </div>
+  <div class="holders" v-for="info in information" :key="info.id">
+    <div class="media box is-half">
       <div class="media-left">
         <figure class="image is-64x64">
-          <img class="is-rounded" :src="profile.user.image" alt="Avatar" />
+          <img class="is-rounded" :src="info.image" alt="Avatar" />
         </figure>
       </div>
       <div class="media-content">
         <div class="content">
-          <p>
-            <strong>{{ profile.user.name }} </strong>
-            <small class="indent">{{ profile.user.email }}</small>
+          <p v-if="currUser">
+            <strong>{{ currUser.name }} </strong>
+            <small class="indent">{{ currUser.email }}</small>
             <br />
             <strong> {{ info.title }}</strong>
             <small class="indent"> {{ info.type }}</small>
@@ -84,10 +83,7 @@ function emitEditWorkout(info: Info) {
       <div class="media-right">
         <div class="columns">
           <button class="edit" @click="emitEditWorkout(info)">Edit</button>
-          <button
-            class="delete is-background-danger"
-            @click="removeInfo(profile.user, info.id)"
-          ></button>
+          <button class="delete is-background-danger" @click="null"></button>
         </div>
       </div>
     </div>

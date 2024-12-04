@@ -1,7 +1,6 @@
-const model = require("../model/users");
+const model = require("../model/infos");
 const express = require("express");
 const app = express.Router();
-const { signIn, signOut, verifyTokenAsync } = require("../model/supabase");
 
 app
   .get("/", (req, res, next) => {
@@ -32,24 +31,11 @@ app
   })
   .delete("/:id", (req, res, next) => {
     const id = req.params.id;
+
     model
       .remove(+id)
       .then((x) => res.send(x))
       .catch(next);
-  })
-  .post("/seed", (req, res, next) => {
-    model
-      .seed()
-      .then((x) => res.send(x))
-      .catch(next);
-  })
-  .post("/login", async (req, res, next) => {
-    try {
-      const { email, password } = req.body;
-      const response = await model.login(email, password);
-      res.status(response.isSuccess ? 200 : 401).send(response);
-    } catch (error) {
-      next(error);
-    }
   });
+
 module.exports = app;

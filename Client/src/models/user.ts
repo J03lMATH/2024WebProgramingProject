@@ -1,6 +1,7 @@
 import type { Info } from './infos'
 import type { DataListEnvelope } from './dataEnvelope'
 import { restAPI } from './myFetch'
+import { ref } from 'vue'
 
 export async function getAll() {
   return restAPI<DataListEnvelope<User>>('users')
@@ -34,4 +35,16 @@ export interface User {
     zip: string
   }
   infos: Info[]
+}
+
+const currUser = ref<User | null>(null)
+
+export const refsUser = () => currUser
+
+export function setUsers(user: User) {
+  currUser.value = user // Initialize infos as an empty array
+}
+
+export function logOutbutt() {
+  currUser.value = null
 }

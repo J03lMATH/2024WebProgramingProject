@@ -2,7 +2,7 @@
 GET http://localhost:3000/api/v1/users
 
 ###
-GET http://localhost:3000/api/v1/users/1
+GET http://localhost:3000/api/v1/users/4
 
 ###
 DELETE http://localhost:3000/api/v1/users/3
@@ -24,7 +24,19 @@ Content-Type: application/json
         "city": "New York",
         "state": "NY",
         "zip": "10001"
-    }
+    },
+    "infos": [
+        {
+      "title": "Evening Run",
+      "date": "2023-10-02",
+      "type": "Running",
+      "distance": 3.0,
+      "duration": 35,
+      "calories": 250,
+      "avgPace": 10,
+      "image": "https://www.verywellfit.com/thmb/1Z6Z9Q1Z9Z9Z9Z9Z9Z9Z9Z9Z9Z9-5c1b1b"
+        }
+     ]
 }
 
 ###
@@ -37,4 +49,13 @@ Content-Type: application/json
 ###
 POST http://localhost:3000/api/v1/users/seed
 
+###
+POST http://localhost:3000/api/v1/users/login
+Content-Type: application/json
 
+{"email":"joel04mathew@gmail.com","password":"CoolPassword"}
+
+###
+POST http://localhost:3000/api/v1/users/logout
+###
+GET http://localhost:3000/api/v1/users/1/infos

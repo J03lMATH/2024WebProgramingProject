@@ -9,7 +9,7 @@ importers:
   .:
     dependencies:
       '@supabase/supabase-js':
-        specifier: ^2.46.1
+        specifier: ^2.46.2
         version: 2.46.2
       dayjs:
         specifier: ^1.11.13
