@@ -51,5 +51,14 @@ app
     } catch (error) {
       next(error);
     }
+  })
+
+  .post("/logout", async (req, res, next) => {
+    try {
+      const response = await model.logout();
+      res.status(response.isSuccess ? 200 : 401).send(response);
+    } catch (error) {
+      next(error);
+    }
   });
 module.exports = app;
