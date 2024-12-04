@@ -24,6 +24,20 @@ export function getInfos(userId: number) {
   return restAPI<DataListEnvelope<Info>>(`users/${userId}/infos`)
 }
 
+//logins in user
+export function login(email: string, password: string) {
+  return restAPI<User>('users/login', { email, password })
+}
+
+//signup user
+export function signup(user: User) {
+  return restAPI<User>('users/signup', user)
+}
+
+export function getByEmail(email: string) {
+  return restAPI<User>(`users/${email}/logingInByEmail`)
+}
+
 export interface User {
   id: number
   name: string

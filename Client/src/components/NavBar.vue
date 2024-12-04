@@ -5,7 +5,6 @@ import FlyoutPanel from '@/components/FlyoutPanel.vue'
 import ShoppingCart from '@/components/ShoppingCart.vue'
 //import { refUser, logOut } from '@/models/userData'
 import { getAll, refsUser, logOutbutt, type User } from '@/models/user'
-import UserLogin from '@/components/UserLogin.vue'
 
 const users = ref<User[]>([])
 
@@ -90,38 +89,21 @@ const isCartOpen = ref(false)
             </div>
           </div>
 
-          <div
-            class="navbar-item has-dropdown is-hoverable"
-            v-if="currUser === null"
-          >
-            <a class="navbar-link">Login</a>
-
-            <div class="navbar-dropdown">
-              <UserLogin
-                class="dropdown-item"
-                v-for="user in users"
-                :key="user.id"
-                :user="user"
-              />
-              <hr class="navbar-divider" />
-              <RouterLink to="/login" class="dropdown-item has-text-grey-light">
-                Log in
-              </RouterLink>
-            </div>
-            <div class="buttons">
-              <a class="button is-primary">
-                <strong>Sign up</strong>
-              </a>
-            </div>
-          </div>
+          <RouterLink to="/login" class="navbar-item" v-if="currUser === null">
+            Log in
+          </RouterLink>
 
           <div class="navbar-item" v-else>
-            <img v-if="currUser" :key="currUser.id" :src="currUser.image" />
+            <img :src="currUser.image" />
 
-            <p v-if="currUser">
+            <p>
               {{ currUser.name }}
             </p>
-            <button class="button" @click="logOutbutt()">LogOut</button>
+            <RouterLink to="/login">
+              <button class="button" @click="logOutbutt()">
+                LogOut
+              </button></RouterLink
+            >
           </div>
 
           <div class="buttons">

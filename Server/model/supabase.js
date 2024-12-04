@@ -51,4 +51,18 @@ module.exports = {
     const { data: user, error } = await supabase.auth.getUser(token);
     return { user, error };
   },
+
+  /**
+   * Sign up a new user
+   * @param {string} email
+   * @param {string} password
+   * @returns {Promise<{user: object|null, error: object|null}>}
+   */
+  async signUp(email, password) {
+    const { data: user, error } = await supabase.auth.signUp({
+      email,
+      password,
+    });
+    return { user, error };
+  },
 };

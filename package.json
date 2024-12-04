@@ -10,7 +10,8 @@
     "@supabase/supabase-js": "^2.46.2",
     "dayjs": "^1.11.13",
     "dotenv": "^16.4.5",
-    "express": "^4.21.0"
+    "express": "^4.21.0",
+    "jsonwebtoken": "^9.0.2"
   },
   "devDependencies": {
     "nodemon": "^3.1.7"

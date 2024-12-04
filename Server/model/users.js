@@ -8,6 +8,7 @@ const {
   signOut,
   getCurrentUser,
   verifyTokenAsync,
+  signUp,
 } = require("./supabase");
 
 /**
@@ -46,6 +47,24 @@ async function get(id) {
     .from("users")
     .select("*, infos(*)")
     .eq("id", id)
+    .single();
+  return {
+    isSuccess: !error,
+    message: error?.message,
+    data: data,
+  };
+}
+
+/**
+ * Get a user by email and password
+ * @param {string} email
+ * @returns {Promise<DataEnvelope<User>>}
+ */
+async function getByLogin(email) {
+  const { data, error } = await conn
+    .from("users")
+    .select("*, infos(*)")
+    .eq("email", email)
     .single();
   return {
     isSuccess: !error,
@@ -241,6 +260,23 @@ async function getInfos(userId) {
     data: data,
   };
 }
+/**
+ *
+ * @param {string} email
+ * @param {string} password
+ * @returns
+ */
+async function signingUp(email, password) {
+  const { user, error } = await signUp(email, password);
+  if (error) {
+    console.error("Sign Up Error:", error.message);
+  }
+  return {
+    isSuccess: !error,
+    message: error?.message,
+    data: user,
+  };
+}
 
 module.exports = {
   getAll,
@@ -249,9 +285,11 @@ module.exports = {
   update,
   remove,
   seed,
-  login,
+  login, //Login in user based on Auth Users in Supabase
   logout,
   fetchCurrentUser,
   verifyToken,
   getInfos,
+  signingUp,
+  getByLogin, //getUser by Email and Password
 };

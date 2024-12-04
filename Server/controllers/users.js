@@ -68,5 +68,25 @@ app
       .getInfos(+id)
       .then((x) => res.send(x))
       .catch(next);
+  })
+  .post("/signup", async (req, res, next) => {
+    try {
+      const { email, password } = req.body;
+      const response = await model.signingUp(email, password);
+      res.status(response.isSuccess ? 200 : 401).send(response);
+    } catch (error) {
+      next(error);
+    }
+  })
+
+  //
+  .get("/:email/logingInByEmail", async (req, res, next) => {
+    const email = req.params.email;
+    try {
+      const response = await model.getByLogin(email);
+      res.status(response.isSuccess ? 200 : 401).send(response);
+    } catch (error) {
+      next(error);
+    }
   });
 module.exports = app;
