@@ -1,56 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { type User } from '@/models/users'
-
-const username = ref('')
-const password = ref('')
-
-const handleSubmit = () => {
-  if (username.value && password.value) {
-    // Handle login logic here
-    console.log('Username:', username.value)
-    console.log('Password:', password.value)
-    alert('Login successful!')
-  } else {
-    alert('Please enter both username and password.')
-  }
-}
+import { refsUser, type User } from '@/models/user'
+import UserLoginForm from '@/components/UserLoginForm.vue'
 </script>
 
 <template>
-  <div class="container">
-    <div class="columns is-centered">
-      <div class="column is-two-thirds">
-        <h1 class="title">Login</h1>
-        <div class="box has-background-grey-darker">
-          <form @submit.prevent="handleSubmit">
-            <div class="columns">
-              <h5 class="subtitle is-5">Username</h5>
-            </div>
-
-            <div class="columns">
-              <input type="text" id="username" v-model="username" required />
-            </div>
-
-            <div class="columns">
-              <h5 class="subtitle is-5">Password</h5>
-            </div>
-
-            <div class="columns">
-              <input
-                type="password"
-                id="password"
-                v-model="password"
-                required
-              />
-            </div>
-
-            <button type="submit">Login</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
+  <UserLoginForm />
 </template>
 
 <style scoped>

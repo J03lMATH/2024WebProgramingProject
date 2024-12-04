@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { refCart, count, total } from '@/models/shoppingCart'
+import { refCart, count, total, removeFromCart } from '@/models/shoppingCart'
 const cart = refCart()
 </script>
 <template>
@@ -11,16 +11,20 @@ const cart = refCart()
     <div v-else>
       <div v-for="item in cart" :key="item.product.id" class="item">
         <img :src="item.product.thumbnail" :alt="item.product.title" />
+        <button @click="removeFromCart(item.product)" style="float: right">
+          <i class="fas fa-trash has-text-danger"></i>
+        </button>
         <h3>{{ item.product.title }}</h3>
         <div>
-          ${{ item.product.price }} * {{ item.quantity }} = ${{
-            (item.product.price * item.quantity).toFixed(2)
-          }}
+          ${{ item.product.price }} *
+          <select v-model="item.quantity">
+            <option v-for="n in 10" :key="n" :value="n">{{ n }}</option>
+          </select>
+          = ${{ (item.product.price * item.quantity).toFixed(2) }}
         </div>
-        <div>{{ item.quantity }}</div>
       </div>
       <div>
-        <p>Total: {{ count }} items = ${{ total.toFixed(2) }}</p>
+        <h3>Total: {{ count }} items = ${{ total.toFixed(2) }}</h3>
       </div>
     </div>
   </div>

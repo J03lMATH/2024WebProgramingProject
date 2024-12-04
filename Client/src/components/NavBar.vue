@@ -3,20 +3,19 @@ import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import FlyoutPanel from '@/components/FlyoutPanel.vue'
 import ShoppingCart from '@/components/ShoppingCart.vue'
-import { refUser, logOut } from '@/models/userData'
-import { getAll, type User } from '@/models/users'
-import UserLogin from '@/components/UserLogin.vue'
+//import { refUser, logOut } from '@/models/userData'
+import { getAll, refsUser, logOutbutt, type User } from '@/models/user'
 
 const users = ref<User[]>([])
-users.value = getAll().data
 
-const currentUser = refUser()
+getAll().then(data => {
+  users.value = data.data
+})
+
+const currUser = refsUser()
 
 function checkAdmin() {
-  if (currentUser.value.length === 0) {
-    return false
-  }
-  return currentUser.value[0].user.admin
+  return currUser.value?.admin
 }
 const isOpen = ref(false)
 
@@ -70,9 +69,6 @@ const isCartOpen = ref(false)
 
             <div class="navbar-dropdown">
               <RouterLink to="/user" class="navbar-item"> User </RouterLink>
-              <RouterLink to="/noFrame" class="navbar-item">
-                No Frame
-              </RouterLink>
             </div>
           </div>
         </div>
@@ -93,42 +89,21 @@ const isCartOpen = ref(false)
             </div>
           </div>
 
-          <div
-            class="navbar-item has-dropdown is-hoverable"
-            v-if="currentUser.length === 0"
-          >
-            <a class="navbar-link">Login</a>
-
-            <div class="navbar-dropdown">
-              <UserLogin
-                class="dropdown-item"
-                v-for="user in users"
-                :key="user.id"
-                :user="user"
-              />
-              <hr class="navbar-divider" />
-              <RouterLink to="/login" class="dropdown-item has-text-grey-light">
-                Log in
-              </RouterLink>
-            </div>
-            <div class="buttons">
-              <a class="button is-primary">
-                <strong>Sign up</strong>
-              </a>
-            </div>
-          </div>
+          <RouterLink to="/login" class="navbar-item" v-if="currUser === null">
+            Log in
+          </RouterLink>
 
           <div class="navbar-item" v-else>
-            <img
-              v-for="profile in currentUser"
-              :key="profile.user.id"
-              :src="profile.user.image"
-            />
+            <img :src="currUser.image" />
 
-            <p v-for="profile in currentUser" :key="profile.user.id">
-              {{ profile.user.name }}
+            <p>
+              {{ currUser.name }}
             </p>
-            <button class="button" @click="logOut()">LogOut</button>
+            <RouterLink to="/login">
+              <button class="button" @click="logOutbutt()">
+                LogOut
+              </button></RouterLink
+            >
           </div>
 
           <div class="buttons">

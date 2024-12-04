@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { ref, watch, defineProps } from 'vue'
-import { refUser, addInfo, updateInfo } from '@/models/userData'
 import type { Info } from '@/models/infos'
+import { refsUser } from '@/models/user'
 
 const props = defineProps<{ selectedWorkout: Info | null }>()
 
-const currentUser = refUser()
+const currentUser = refsUser()
 
 const title = ref('')
 const date = ref('')
@@ -52,7 +52,7 @@ function resetForm() {
   isOpen.value = false
 }
 
-function saveWorkout() {
+/*function saveWorkout() {
   const newInfo = {
     id: selectedWorkoutId.value ?? Date.now(),
     title: title.value,
@@ -65,7 +65,7 @@ function saveWorkout() {
     image: image.value,
   }
 
-  const userId = currentUser.value[0].user
+  const userId = currentUser.value
   if (selectedWorkoutId.value === null) {
     addInfo(userId, newInfo)
   } else {
@@ -73,7 +73,7 @@ function saveWorkout() {
   }
 
   resetForm()
-}
+}*/
 </script>
 
 <template>
@@ -86,7 +86,7 @@ function saveWorkout() {
       >
         Add Workout
       </a>
-      <form @submit.prevent="saveWorkout">
+      <form @submit.prevent="">
         <div class="modal" :class="{ 'is-active': isOpen }">
           <div class="modal-background"></div>
           <div class="modal-card">

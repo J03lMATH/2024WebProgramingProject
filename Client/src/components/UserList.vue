@@ -1,18 +1,21 @@
 <script setup lang="ts">
-import { removeUser } from '@/models/userData'
 import { ref, defineEmits } from 'vue'
-import { getAll, type User } from '@/models/users'
+import { getAll, remove, type User } from '@/models/user'
 
 const users = ref<User[]>([])
-users.value = getAll().data
+getAll().then(data => {
+  users.value = data.data
+})
 
 const emit = defineEmits(['editUser'])
 
-function emitEditUser(user: User) {
+function updateUser(user: User) {
   emit('editUser', user)
 }
-function deleteUser(id: number) {
-  removeUser(users.value, id)
+function removeUser(id: number) {
+  remove(id).then(() => {
+    users.value = users.value.filter(user => user.id !== id)
+  })
 }
 </script>
 
@@ -34,13 +37,13 @@ function deleteUser(id: number) {
           <td>
             <button
               class="button is-small is-info"
-              @click="emitEditUser(profile)"
+              @click="updateUser(profile)"
             >
               Edit
             </button>
             <button
               class="button is-small is-danger"
-              @click="deleteUser(profile.id)"
+              @click="removeUser(profile.id)"
             >
               Delete
             </button>

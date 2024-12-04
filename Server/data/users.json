@@ -18,8 +18,9 @@
       "infos": [
         {
           "id": 1,
-          "date": "2023-10-01",
+
           "title": "Evening Cycling",
+          "date": "2023-10-01",
           "type": "Cycling",
           "distance": 6.0,
           "duration": 70,
@@ -29,8 +30,9 @@
         },
         {
           "id": 2,
-          "date": "2023-10-02",
+
           "title": "Evening Run",
+          "date": "2023-10-02",
           "type": "Running",
           "distance": 3.0,
           "duration": 35,
@@ -57,10 +59,11 @@
       },
       "infos": [
         {
-          "id": 3,
-          "date": "2023-10-03",
+          "id": 1,
+
           "title": "Morning Walk",
           "type": "Walking",
+          "date": "2023-10-03",
           "distance": 1.5,
           "duration": 20,
           "calories": 100,
@@ -68,10 +71,11 @@
           "image": "https://pittsburghearthday.org/wp-content/uploads/2021/03/Walk-Every-Day.jpg"
         },
         {
-          "id": 4,
-          "date": "2023-10-04",
+          "id": 2,
+
           "title": "Evening Walk",
           "type": "Walking",
+          "date": "2023-10-04",
           "distance": 2.0,
           "duration": 25,
           "calories": 150,
@@ -97,10 +101,11 @@
       },
       "infos": [
         {
-          "id": 5,
-          "date": "2021-11-01",
+          "id": 1,
+
           "title": "Morning Run",
           "type": "Running",
+          "date": "2021-11-01",
           "distance": 2,
           "duration": 30,
           "calories": 200,

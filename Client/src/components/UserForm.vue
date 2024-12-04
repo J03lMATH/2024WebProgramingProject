@@ -1,13 +1,11 @@
 <script setup lang="ts">
 import { ref, watch, defineProps } from 'vue'
-import { refUser, addUser, updateUser } from '@/models/userData'
-import { getAll, type User } from '@/models/users'
+import { addUser, updateUser } from '@/models/userData'
+import { getAll, type User } from '@/models/user'
 
 const props = defineProps<{ selectedUser: User | null }>()
 const users = ref<User[]>([])
 users.value = getAll().data
-
-const currentUser = refUser()
 
 const name = ref('')
 const email = ref('')
