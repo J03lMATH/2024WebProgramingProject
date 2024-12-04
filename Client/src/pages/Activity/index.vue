@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Activities from '@/components/Activities.vue'
-import { refsUser } from '@/models/user'
+import { refsUser, getInfos, getId } from '@/models/user'
 import MakeWorkout from '@/components/MakeWorkout.vue'
 import { ref } from 'vue'
 import type { Info } from '@/models/infos'
@@ -10,6 +10,23 @@ const selectedWorkout = ref<Info | null>(null)
 
 function editWorkout(workout: Info) {
   selectedWorkout.value = workout
+}
+
+let UserId = undefined
+if (currentUser !== null) {
+  UserId = getId()
+} else {
+  UserId = undefined
+}
+
+const infos = ref<Info[]>([])
+
+if (UserId !== undefined) {
+  getInfos(UserId).then(data => {
+    infos.value = data.data
+  })
+} else {
+  infos.value = []
 }
 </script>
 
@@ -23,8 +40,12 @@ function editWorkout(workout: Info) {
   <div class="forms" v-else>
     <MakeWorkout :selectedWorkout="selectedWorkout" />
   </div>
-
-  <Activities @editWorkout="editWorkout" />
+  <Activities
+    v-for="info in infos"
+    :key="info.id"
+    :info="info"
+    @editWorkout="editWorkout"
+  />
 </template>
 
 <style scoped>

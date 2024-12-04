@@ -19,6 +19,11 @@ export function remove(id: number) {
   return restAPI<User>(`users/${id}`, undefined, 'DELETE')
 }
 
+//gets the infos from the specific user
+export function getInfos(userId: number) {
+  return restAPI<DataListEnvelope<Info>>(`users/${userId}/infos`)
+}
+
 export interface User {
   id: number
   name: string
@@ -47,4 +52,8 @@ export function setUsers(user: User) {
 
 export function logOutbutt() {
   currUser.value = null
+}
+
+export function getId() {
+  return currUser.value?.id
 }

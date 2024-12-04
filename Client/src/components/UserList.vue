@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, defineEmits } from 'vue'
-import { getAll, update, remove, type User } from '@/models/user'
+import { getAll, remove, type User } from '@/models/user'
 
 const users = ref<User[]>([])
 getAll().then(data => {

@@ -1,31 +1,20 @@
 <script setup lang="ts">
 import { refsUser } from '@/models/user'
-import { defineEmits, ref } from 'vue'
-import { type Info, getByUserId, getAll } from '@/models/infos'
+import { defineEmits } from 'vue'
+import { type Info } from '@/models/infos'
 
 const emit = defineEmits(['editWorkout'])
 
 const currUser = refsUser()
+const props = defineProps<{
+  info: Info
+}>()
 
-const information = ref<Info[]>([])
-
-getAll().then(data => {
-  information.value = data.data
-})
-
-function emitEditWorkout(info: Info) {
-  emit('editWorkout', info)
-}
+const { info } = props
 </script>
 
 <template>
-  <div v-if="currUser">
-    <h1>{{ currUser.name }}</h1>
-  </div>
-  <div v-if="information">
-    <h1>{{ information }}</h1>
-  </div>
-  <div class="holders" v-for="info in information" :key="info.id">
+  <div class="holders">
     <div class="media box is-half">
       <div class="media-left">
         <figure class="image is-64x64">
@@ -82,7 +71,7 @@ function emitEditWorkout(info: Info) {
       </div>
       <div class="media-right">
         <div class="columns">
-          <button class="edit" @click="emitEditWorkout(info)">Edit</button>
+          <button class="edit">Edit</button>
           <button class="delete is-background-danger" @click="null"></button>
         </div>
       </div>

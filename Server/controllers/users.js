@@ -60,5 +60,13 @@ app
     } catch (error) {
       next(error);
     }
+  })
+
+  .get("/:id/infos", (req, res, next) => {
+    const id = req.params.id;
+    model
+      .getInfos(+id)
+      .then((x) => res.send(x))
+      .catch(next);
   });
 module.exports = app;

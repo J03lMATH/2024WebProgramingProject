@@ -224,6 +224,24 @@ async function verifyToken(token) {
   };
 }
 
+/**
+ *
+ * @param {number} userId
+ * @returns
+ */
+
+async function getInfos(userId) {
+  const { data, error } = await conn
+    .from("infos")
+    .select("*")
+    .eq("userId", userId);
+  return {
+    isSuccess: !error,
+    message: error?.message,
+    data: data,
+  };
+}
+
 module.exports = {
   getAll,
   get,
@@ -235,4 +253,5 @@ module.exports = {
   logout,
   fetchCurrentUser,
   verifyToken,
+  getInfos,
 };
