@@ -30,8 +30,8 @@ export function login(email: string, password: string) {
 }
 
 //signup user
-export function signup(user: User) {
-  return restAPI<User>('users/signup', user)
+export function signup(email: string, password: string) {
+  return restAPI<User>('users/signup', { email, password })
 }
 
 export function getByEmail(email: string) {

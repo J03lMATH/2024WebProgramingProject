@@ -90,9 +90,12 @@ const isCartOpen = ref(false)
           </div>
 
           <RouterLink to="/login" class="navbar-item" v-if="currUser === null">
-            Log in
+            Login
           </RouterLink>
 
+          <RouterLink to="/signUp" class="navbar-item" v-if="currUser === null">
+            SignUp
+          </RouterLink>
           <div class="navbar-item" v-else>
             <img :src="currUser.image" />
 

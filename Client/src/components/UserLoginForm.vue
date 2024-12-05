@@ -1,13 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { login, setUsers, getByEmail, refsUser, type User } from '@/models/user'
-import { refUser } from '@/models/userData'
+import { login, setUsers, getByEmail, type User } from '@/models/user'
 
 const email = ref('joel04mathew@gmail.com')
 const password = ref('CoolPassword')
 const user = ref<User | null>(null)
-
-const currUser = refsUser()
 
 function handleSubmit() {
   if (email.value != '' && password.value != '') {
@@ -20,6 +17,7 @@ function handleSubmit() {
       console.log('User:', user.value)
       if (user.value) {
         setUsers(user.value.data)
+        //may be red flag but actually works
       }
       console.log('Username:', email.value)
       console.log('Password:', password.value)
@@ -45,7 +43,7 @@ function resetLoginForm() {
         <div class="box has-background-grey-darker">
           <form @submit.prevent="handleSubmit">
             <div class="columns">
-              <h5 class="subtitle is-5">Username</h5>
+              <h5 class="subtitle is-5">Email</h5>
             </div>
 
             <div class="columns">
