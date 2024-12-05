@@ -2,6 +2,8 @@ const express = require("express");
 const app = express();
 const userController = require("./controllers/users");
 const productController = require("./controllers/products");
+const infoController = require("./controllers/infos");
+const { parseToken, requireAdmin } = require("./middleware/authrization");
 
 const PORT = 3000;
 
@@ -26,6 +28,7 @@ app
   })
   .use("/api/v1/users", userController)
   .use("/api/v1/products", productController)
+  .use("api/v1/infos", infoController)
 
   .get("*", (req, res, next) => {
     res.sendFile(__dirname + "/dist/index.html");
