@@ -1,7 +1,9 @@
 const express = require("express");
 const app = express();
 const userController = require("./controllers/users");
-const productController = require("./controllers/products");
+const infoController = require("./controllers/infos");
+const exerciseTypeController = require("./controllers/exerciseType");
+const { parseToken, requireAdmin } = require("./middleware/authrization");
 
 const PORT = 3000;
 
@@ -25,7 +27,8 @@ app
     res.send("About Us");
   })
   .use("/api/v1/users", userController)
-  .use("/api/v1/products", productController)
+  .use("/api/v1/infos", infoController)
+  .use("/api/v1/exerciseType", exerciseTypeController)
 
   .get("*", (req, res, next) => {
     res.sendFile(__dirname + "/dist/index.html");

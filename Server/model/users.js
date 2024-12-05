@@ -3,6 +3,7 @@ const data = require("../data/users.json");
 const supabase = require("./supabase");
 const { getConnection } = require("./supabase");
 const conn = getConnection();
+const jwt = require("jsonwebtoken");
 const {
   signIn,
   signOut,
@@ -229,18 +230,33 @@ async function fetchCurrentUser() {
   };
 }
 
+async function createToken(user, expiresIn) {
+  return new Promise((resolve, reject) => {
+    jwt.sign(
+      { userid: user.userid, email: user.email },
+      process.env.JWT_SECRET ?? "",
+      { expiresIn },
+      (err, token) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(token);
+        }
+      }
+    );
+  });
+}
+
 async function verifyToken(token) {
-  const { user, error } = await verifyTokenAsync(token);
-  if (error) {
-    console.error("Verify Token Error:", error.message);
-  } else {
-    console.log("Verify Token Successful", user);
-  }
-  return {
-    isSuccess: !error,
-    message: error?.message,
-    data: user,
-  };
+  return new Promise((resolve, reject) => {
+    jwt.verify(token, process.env.JWT_SECRET ?? "", (err, user) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(user);
+      }
+    });
+  });
 }
 
 /**
@@ -278,6 +294,34 @@ async function signingUp(email, password) {
   };
 }
 
+//trying to set up a login by session once working will delete the other login fucntions
+async function loginByData(email, password) {
+  console.log("Login by Data", email, password);
+  const { data, error } = await conn
+    .from("users")
+    .select("*, infos(*)")
+    .eq("email", email)
+    .eq("password", password)
+    .single();
+
+  if (error) {
+    console.error("Login by Data Error:", error.message);
+    return {
+      isSuccess: false,
+      message: error.message,
+      data: null,
+      token: null,
+    };
+  }
+
+  const token = await createToken(data, 1234567);
+  return {
+    isSuccess: true,
+    message: "User Logged In",
+    data: { data, token },
+  };
+}
+
 module.exports = {
   getAll,
   get,
@@ -289,7 +333,10 @@ module.exports = {
   logout,
   fetchCurrentUser,
   verifyToken,
+  createToken,
   getInfos,
   signingUp,
   getByLogin, //getUser by Email and Password
+
+  loginByData, //Login by Data
 };

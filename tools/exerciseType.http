@@ -1,0 +1,37 @@
+
+//get all exercise types
+###
+GET http://localhost:3000/api/v1/exerciseType
+
+//get one exercise type
+###
+GET http://localhost:3000/api/v1/exerciseType/1
+
+//delete one exercise type
+###
+DELETE http://localhost:3000/api/v1/exerciseType/1
+
+//create an exercise type
+###
+POST http://localhost:3000/api/v1/exerciseType
+Content-Type: application/json
+
+{
+    "name": "Running",
+    "description": "Running is a method of terrestrial locomotion allowing humans and other animals to move rapidly on foot. Running is a type of gait characterized by an aerial phase in which all feet are above the ground (though there are exceptions). This is in contrast to walking, where one foot is always in contact with the ground, the legs are kept mostly straight and the center of gravity vaults over the stance leg or legs in an inverted pendulum fashion."
+}
+
+//update an exercise type
+###
+PATCH http://localhost:3000/api/v1/exerciseType/2
+Content-Type: application/json
+
+{
+    "description": "Running is a method of terrestrial locomotion allowing humans and other animals to move rapidly on foot. Running is a type of gait characterized by an aerial phase in which all feet are above the ground (though there are exceptions). This is in contrast to walking, where one foot is always in contact with the ground, the legs are kept mostly straight and the center of gravity vaults over the stance leg or legs in an inverted pendulum fashion. Running is a great way to get in shape and stay healthy."
+}
+
+//seed exercise types
+###
+POST http://localhost:3000/api/v1/exerciseType/seed
+
+

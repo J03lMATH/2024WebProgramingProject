@@ -1,7 +1,6 @@
 const model = require("../model/users");
 const express = require("express");
 const app = express.Router();
-const { signIn, signOut, verifyTokenAsync } = require("../model/supabase");
 
 app
   .get("/", (req, res, next) => {
@@ -85,6 +84,22 @@ app
     try {
       const response = await model.getByLogin(email);
       res.status(response.isSuccess ? 200 : 401).send(response);
+    } catch (error) {
+      next(error);
+    }
+  })
+
+  //trying to set up a login by session once working will delete the other login fucntions
+  .post("/loginByData", async (req, res, next) => {
+    try {
+      const { email, password } = req.body;
+      const response = await model.loginByData(email, password);
+      if (response.isSuccess) {
+        req.user = response.data.user;
+        req.token = response.data.token;
+      } else {
+        res.status(401).send(response);
+      }
     } catch (error) {
       next(error);
     }

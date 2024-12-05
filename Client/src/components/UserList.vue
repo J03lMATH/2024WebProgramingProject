@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, defineEmits } from 'vue'
+import { ref } from 'vue'
 import { getAll, remove, type User } from '@/models/user'
 
 const users = ref<User[]>([])

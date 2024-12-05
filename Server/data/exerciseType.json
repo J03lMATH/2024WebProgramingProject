@@ -1,0 +1,29 @@
+{
+  "items": [
+    {
+      "id": 1,
+      "name": "Running",
+      "description": "Running is a method of terrestrial locomotion allowing humans and other animals to move rapidly on foot. Running is a type of gait characterized by an aerial phase in which all feet are above the ground (though there are exceptions)."
+    },
+    {
+      "id": 2,
+      "name": "Cycling",
+      "description": "Cycling, also called biking or bicycling, is the use of bicycles for transport, recreation, exercise or sport. People engaged in cycling are referred to as 'cyclists', 'bikers', or less commonly, as 'bicyclists'."
+    },
+    {
+      "id": 3,
+      "name": "Swimming",
+      "description": "Swimming is an individual or team racing sport that requires the use of one's entire body to move through water. The sport takes place in pools or open water (e.g., in a sea or lake)."
+    },
+    {
+      "id": 4,
+      "name": "Walking",
+      "description": "Walking is one of the simplest ways to get active and stay active. With each step you take, you travel further down the path to a healthier lifestyle. Research has shown that walking can have a significant impact on your health by lowering your chances of heart disease."
+    },
+    {
+      "id": 5,
+      "name": "Yoga",
+      "description": "Yoga is a group of physical, mental, and spiritual practices or disciplines that originated in ancient India. Yoga is one of the six Āstika (orthodox) schools of Indian philosophical traditions."
+    }
+  ]
+}

@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import UserLoginForm from '@/components/UserLoginForm.vue'
+import SignUpForm from '@/components/SignUpForm.vue'
 </script>
 
 <template>
-  <UserLoginForm />
+  <SignUpForm :selectedUser="null" />
 </template>
 
 <style scoped>

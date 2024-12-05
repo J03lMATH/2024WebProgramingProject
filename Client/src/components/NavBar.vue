@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
-import FlyoutPanel from '@/components/FlyoutPanel.vue'
-import ShoppingCart from '@/components/ShoppingCart.vue'
 //import { refUser, logOut } from '@/models/userData'
 import { getAll, refsUser, logOutbutt, type User } from '@/models/user'
 
@@ -83,16 +81,18 @@ const isCartOpen = ref(false)
               <RouterLink to="/contact" class="navbar-item">
                 Contact
               </RouterLink>
-              <RouterLink to="/products" class="navbar-item"> Shop </RouterLink>
               <hr class="navbar-divider" />
               <a class="navbar-item"> Report an issue </a>
             </div>
           </div>
 
           <RouterLink to="/login" class="navbar-item" v-if="currUser === null">
-            Log in
+            Login
           </RouterLink>
 
+          <RouterLink to="/signUp" class="navbar-item" v-if="currUser === null">
+            SignUp
+          </RouterLink>
           <div class="navbar-item" v-else>
             <img :src="currUser.image" />
 
@@ -121,10 +121,6 @@ const isCartOpen = ref(false)
       </div>
     </div>
   </nav>
-
-  <FlyoutPanel :is-open="isCartOpen">
-    <ShoppingCart />
-  </FlyoutPanel>
 </template>
 <style scoped>
 .router-link-active {
