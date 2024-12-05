@@ -14,7 +14,7 @@ const conn = getConnection();
  */
 
 /**
- * Get all users
+ * Get all infos (Infos are the activitise that the user has done)
  * @returns {Promise<DataListEnvelope<Info>>}
  */
 async function getAll() {
@@ -49,14 +49,16 @@ async function get(id) {
 
 /**
  * Add a new info to user
+ * @param {number} userId
  * @param {Info} info
  * @returns {Promise<DataEnvelope<Info>>}
  */
-async function add(info) {
+async function add(userId, info) {
   const { data, error } = await conn
     .from("infos")
     .insert([
       {
+        userId: userId,
         title: info.title,
         type: info.type,
         date: info.date,

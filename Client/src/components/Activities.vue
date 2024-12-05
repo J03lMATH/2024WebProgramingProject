@@ -18,7 +18,7 @@ const { info } = props
     <div class="media box is-half">
       <div class="media-left">
         <figure class="image is-64x64">
-          <img class="is-rounded" :src="info.image" alt="Avatar" />
+          <img class="is-rounded" :src="currUser?.image" alt="Avatar" />
         </figure>
       </div>
       <div class="media-content">

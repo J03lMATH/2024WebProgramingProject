@@ -1,58 +1,49 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-import { refUser, sortInfosByDate } from '@/models/userData'
+import { computed, ref } from 'vue'
+import { sortInfosByDate } from '@/models/userData'
+import { type Info, getAll } from '@/models/infos'
+import { type User, refsUser } from '@/models/user'
 
-const currentUser = refUser()
+const infos = ref<Info[]>([])
+
+getAll().then(data => {
+  infos.value = data.data
+})
+
+const currentUser = refsUser()
+
+const selectedUserId = ref<number | null>(null)
+if (currentUser.value) {
+  selectedUserId.value = currentUser.value.id
+}
+
+function sortByIdInfos(selectedUserId: number | null, infos: Info[]): Info[] {
+  return infos.filter(info => info.userId === selectedUserId)
+}
 
 const sortedInfos = computed(() => {
-  return currentUser.value.map(userData => ({
-    ...userData,
-    user: {
-      ...userData.user,
-      infos: sortInfosByDate(userData.user.infos),
-    },
-  }))
+  return sortInfosByDate(sortByIdInfos(selectedUserId.value, infos.value))
 })
 
 const totalDistance = computed(() => {
-  return sortedInfos.value.reduce((total, userData) => {
-    return (
-      total +
-      userData.user.infos.reduce((userTotal, info) => {
-        return userTotal + (info.distance || 0)
-      }, 0)
-    )
+  return sortedInfos.value.reduce((total, info) => {
+    return total + (info.distance || 0)
   }, 0)
 })
 const totalCalories = computed(() => {
-  return sortedInfos.value.reduce((total, userData) => {
-    return (
-      total +
-      userData.user.infos.reduce((userTotal, info) => {
-        return userTotal + (info.calories || 0)
-      }, 0)
-    )
+  return sortedInfos.value.reduce((total, info) => {
+    return total + (info.calories || 0)
   }, 0)
 })
 const totalDuration = computed(() => {
-  return sortedInfos.value.reduce((total, userData) => {
-    return (
-      total +
-      userData.user.infos.reduce((userTotal, info) => {
-        return userTotal + (info.duration || 0)
-      }, 0)
-    )
+  return sortedInfos.value.reduce((total, info) => {
+    return total + (info.duration || 0)
   }, 0)
 })
 
 const totalAvgPace = computed(() => {
-  return sortedInfos.value.reduce((total, userData) => {
-    return (
-      total +
-      userData.user.infos.reduce((userTotal, info) => {
-        return userTotal + (info.avgPace || 0)
-      }, 0)
-    )
+  return sortedInfos.value.reduce((total, info) => {
+    return total + (info.avgPace || 0)
   }, 0)
 })
 </script>

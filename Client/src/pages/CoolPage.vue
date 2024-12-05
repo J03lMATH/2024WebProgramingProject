@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { refUser } from '@/models/userData'
+import { refsUser } from '@/models/user'
 import Tracker from '@/components/Tracker.vue'
 
-const currentUser = refUser()
+const currentUser = refsUser()
 </script>
 
 <template>
   <h1 class="title">User Statistics</h1>
-  <div v-if="currentUser.length === 0">
+  <div v-if="currentUser === null">
     <div class="notification is-warning">
       <p>
         You must log in to see Statistics and to see Your Admin Page Login as
