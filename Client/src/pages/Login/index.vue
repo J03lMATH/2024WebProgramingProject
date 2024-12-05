@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { refsUser, type User } from '@/models/user'
 import UserLoginForm from '@/components/UserLoginForm.vue'
 </script>
 
