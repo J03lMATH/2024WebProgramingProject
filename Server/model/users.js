@@ -294,6 +294,7 @@ async function signingUp(email, password) {
   };
 }
 
+//trying to set up a login by session once working will delete the other login fucntions
 async function loginByData(email, password) {
   console.log("Login by Data", email, password);
   const { data, error } = await conn

@@ -1,9 +1,18 @@
 <script setup lang="ts">
 import { ref, watch, defineProps } from 'vue'
-import { create, signup, type User } from '@/models/user'
+import { update, refsUser, getId, type User } from '@/models/user'
 
 const props = defineProps<{ selectedUser: User | null }>()
 const user = ref<User | null>(null)
+
+const currUser = refsUser()
+
+let UserId = undefined
+if (currUser !== null) {
+  UserId = getId()
+} else {
+  UserId = undefined
+}
 
 const name = ref('')
 const email = ref('')
@@ -18,21 +27,19 @@ const address = ref({
   state: '',
   zip: '',
 })
-const selectedUserId = ref<number | null>(null)
-
-watch(
+const selectedUserId = watch(
   () => props.selectedUser,
-  newUser => {
-    if (newUser) {
-      selectedUserId.value = newUser.id
-      name.value = newUser.name
-      email.value = newUser.email
-      username.value = newUser.username
-      password.value = newUser.password
-      age.value = newUser.age
-      admin.value = newUser.admin
-      image.value = newUser.image
-      address.value = newUser.address
+  editUser => {
+    if (editUser) {
+      selectedUserId.value = editUser.id
+      name.value = editUser.name
+      email.value = editUser.email
+      username.value = editUser.username
+      password.value = editUser.password
+      age.value = editUser.age
+      admin.value = editUser.admin
+      image.value = editUser.image
+      address.value = editUser.address
     } else {
       resetForm()
     }
@@ -58,8 +65,8 @@ function resetForm() {
 }
 
 function saveUser() {
-  const newUser = {
-    id: 0, //will generate a unique id in the database
+  const editUser = {
+    id: selectedUserId.value, //will generate a unique id in the database
     name: name.value,
     email: email.value,
     username: username.value,
@@ -71,14 +78,10 @@ function saveUser() {
     infos: [], // Add an empty array or populate it with appropriate data
   }
 
-  if (newUser.email != '' || newUser.password != '') {
-    signup(newUser.email, newUser.password)
-
-    create(newUser).then(data => {
+  if (selectedUserId.value) {
+    update(editUser).then(data => {
       user.value = data
-      console.log('email:', email.value)
-      console.log('password', password.value)
-      console.log('User created:', newUser)
+      console.log('User updated:', editUser)
     })
   }
 

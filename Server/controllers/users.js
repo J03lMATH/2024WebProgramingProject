@@ -89,6 +89,7 @@ app
     }
   })
 
+  //trying to set up a login by session once working will delete the other login fucntions
   .post("/loginByData", async (req, res, next) => {
     try {
       const { email, password } = req.body;

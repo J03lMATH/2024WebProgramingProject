@@ -60,7 +60,7 @@ watch(
 //saves the new user
 function saveUser() {
   const newUser = {
-    id: 0, // or generate a unique id
+    id: 0, // generate a unique id in the database
     name: name.value,
     email: email.value,
     username: 'N/A',
@@ -125,7 +125,9 @@ function saveUser() {
               />
             </div>
 
-            <button type="submit">SignUp</button>
+            <RouterLink to="/login"
+              ><button type="submit">SignUp</button></RouterLink
+            >
           </form>
         </div>
       </div>
