@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { sortInfosByDate } from '@/models/userData'
-import { type Info, getAll } from '@/models/infos'
-import { type User, refsUser } from '@/models/user'
+import { type Info, getAllInfos } from '@/models/infos'
+import { refsUser } from '@/models/user'
 
 const infos = ref<Info[]>([])
 
-getAll().then(data => {
+getAllInfos().then(data => {
   infos.value = data.data
 })
 

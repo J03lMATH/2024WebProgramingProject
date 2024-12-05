@@ -1,28 +1,26 @@
 <script setup lang="ts">
-import { type User, getAll } from '@/models/user'
+import { type User, refsUser, getAllWithInfos } from '@/models/user'
 import { ref } from 'vue'
-import {
-  refUser,
-  sortUsersInfoByDateForFriends,
-  removeInfo,
-} from '@/models/userData'
 
-const currentUser = refUser()
+import { remove } from '@/models/infos'
+
+const currentUser = refsUser()
+
 const users = ref<User[]>([])
-users.value = getAll().data
-
-const sortedUsers = sortUsersInfoByDateForFriends(users.value, false)
+getAllWithInfos().then(data => {
+  users.value = data.data
+})
 </script>
 
 <template>
   <h1 class="title">Friends</h1>
-  <div v-if="currentUser.length === 0">
+  <div v-if="currentUser === null">
     <div class="notification is-warning">
       <p>You must log in to see Friends</p>
     </div>
   </div>
   <div v-else>
-    <div class="holders" v-for="profile in sortedUsers" :key="profile.id">
+    <div class="holders" v-for="profile in users" :key="profile.id">
       <div
         class="media box is-half"
         v-for="info in profile.infos"
@@ -80,12 +78,12 @@ const sortedUsers = sortUsersInfoByDateForFriends(users.value, false)
           </div>
         </div>
 
-        <div v-for="cur in currentUser" :key="cur.user.id">
-          <div class="media-right" v-if="cur.user.id === profile.id">
+        <div>
+          <div class="media-right" v-if="currentUser.id === profile.id">
             <strong>{{ info.date }}</strong>
             <button
               class="delete is-background-danger"
-              @click="removeInfo(cur.user, info.id)"
+              @click="remove(info.id)"
             ></button>
           </div>
           <div class="media-right" v-else>

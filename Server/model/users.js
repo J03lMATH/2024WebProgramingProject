@@ -39,6 +39,22 @@ async function getAll() {
 }
 
 /**
+ * Get all users with infos
+ * @returns {Promise<DataListEnvelope<User>>}
+ */
+async function getAllWithInfos() {
+  const { data, error, count } = await conn
+    .from("users")
+    .select("*, infos(*)", { count: "estimated" });
+  return {
+    isSuccess: !error,
+    message: error?.message,
+    data: data,
+    total: count,
+  };
+}
+
+/**
  * Get a user by id
  * @param {number} id
  * @returns {Promise<DataEnvelope<User>>}
@@ -337,6 +353,6 @@ module.exports = {
   getInfos,
   signingUp,
   getByLogin, //getUser by Email and Password
-
+  getAllWithInfos,
   loginByData, //Login by Data
 };

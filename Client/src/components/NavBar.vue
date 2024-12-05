@@ -105,18 +105,6 @@ const isCartOpen = ref(false)
               </button></RouterLink
             >
           </div>
-
-          <div class="buttons">
-            <button
-              class="button is-light is-active"
-              :class="{ 'is-focused': isCartOpen }"
-              @click="isCartOpen = !isCartOpen"
-            >
-              <span class="icon">
-                <i class="fas fa-shopping-cart"> </i>
-              </span>
-            </button>
-          </div>
         </div>
       </div>
     </div>

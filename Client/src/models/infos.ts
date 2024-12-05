@@ -1,7 +1,7 @@
 import type { DataListEnvelope } from './dataEnvelope'
 import { restAPI } from './myFetch'
 
-export async function getAll() {
+export async function getAllInfos() {
   return restAPI<DataListEnvelope<Info>>('infos')
 }
 

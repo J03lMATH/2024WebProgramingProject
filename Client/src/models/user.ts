@@ -1,6 +1,6 @@
 import type { Info } from './infos'
 import type { DataListEnvelope } from './dataEnvelope'
-import { restAPI } from './myFetch'
+import { rest, restAPI } from './myFetch'
 import { ref } from 'vue'
 
 export async function getAll() {
@@ -38,6 +38,10 @@ export function getByEmail(email: string) {
   return restAPI<User>(`users/${email}/logingInByEmail`)
 }
 
+export function getAllWithInfos() {
+  return restAPI<DataListEnvelope<User>>('users/withInfos')
+}
+
 export interface User {
   id: number
   name: string
@@ -70,4 +74,20 @@ export function logOutbutt() {
 
 export function getId() {
   return currUser.value?.id
+}
+
+export function sortUsersInfoByDateForFriends(
+  users: User[],
+  ascending: boolean = true,
+): User[] {
+  return users.map(user => {
+    // Sort the user's infos array by date
+    user.infos.sort((a, b) => {
+      const dateA = new Date(a.date).getTime()
+      const dateB = new Date(b.date).getTime()
+      return ascending ? dateA - dateB : dateB - dateA
+    })
+
+    return user // Return the updated user with sorted infos
+  })
 }
