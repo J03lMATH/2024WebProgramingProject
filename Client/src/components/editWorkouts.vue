@@ -9,6 +9,7 @@ getAllEx().then(data => {
   exerciseTypes.value = data.data
 })
 
+//creating all the const
 const title = ref(props.selectedWorkout?.title || '')
 const date = ref(props.selectedWorkout?.date || '')
 const type = ref(props.selectedWorkout?.type || '')
@@ -93,7 +94,7 @@ function saveWorkout() {
           <div class="modal-background"></div>
           <div class="modal-card">
             <header class="modal-card-head has-background-danger-bold">
-              <p class="modal-card-title has-text-text-45">Edit Wprkout</p>
+              <p class="modal-card-title has-text-text-45">Edit Workout</p>
               <button
                 class="delete"
                 aria-label="close"
