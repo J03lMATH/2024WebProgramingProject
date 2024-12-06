@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, watch, defineProps } from 'vue'
-import type { Info } from '@/models/infos'
+import { type Info, createInfo, updateInfo } from '@/models/infos'
 import { refsUser } from '@/models/user'
 
 const props = defineProps<{ selectedWorkout: Info | null }>()
@@ -52,28 +52,37 @@ function resetForm() {
   isOpen.value = false
 }
 
-/*function saveWorkout() {
-  const newInfo = {
-    id: selectedWorkoutId.value ?? Date.now(),
-    title: title.value,
-    type: type.value,
-    date: date.value,
-    distance: distance.value,
-    duration: duration.value,
-    calories: calories.value,
-    avgPace: avgPace.value,
-    image: image.value,
-  }
+function saveWorkout() {
+  const userId = currentUser.value?.id
+  console.log(userId)
+  if (userId !== undefined) {
+    const newInfo = {
+      id: selectedWorkoutId.value ?? 0,
+      userId: userId,
+      title: title.value,
+      type: type.value,
+      date: date.value,
+      distance: distance.value,
+      duration: duration.value,
+      calories: calories.value,
+      avgPace: avgPace.value,
+      image: image.value,
+    }
+    debugger
+    console.log(newInfo)
 
-  const userId = currentUser.value
-  if (selectedWorkoutId.value === null) {
-    addInfo(userId, newInfo)
+    if (selectedWorkoutId.value === null) {
+      createInfo(userId, newInfo)
+    } else {
+      updateInfo(newInfo)
+    }
+    resetForm()
+
+    resetForm()
   } else {
-    updateInfo(userId, newInfo)
+    console.log('User not found/cant be created')
   }
-
-  resetForm()
-}*/
+}
 </script>
 
 <template>
@@ -86,7 +95,7 @@ function resetForm() {
       >
         Add Workout
       </a>
-      <form @submit.prevent="">
+      <form @submit.prevent="saveWorkout">
         <div class="modal" :class="{ 'is-active': isOpen }">
           <div class="modal-background"></div>
           <div class="modal-card">

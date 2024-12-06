@@ -71,6 +71,8 @@ async function add(userId, info) {
     ])
     .select("*")
     .single();
+  console.log("Data:", data);
+  console.log("Error:", error);
 
   return {
     isSuccess: !error,

@@ -9,11 +9,11 @@ export async function getById(id: number) {
   return restAPI<Info>(`infos/${id}`)
 }
 
-export function create(userId: number, info: Info) {
-  return restAPI<Info>(`users//infos/add/${userId}`, info)
+export function createInfo(id: number, info: Info) {
+  return restAPI<Info>(`infos/add/${id}`, info)
 }
 
-export function update(info: Info) {
+export function updateInfo(info: Info) {
   return restAPI<Info>(`infos/${info.id}`, info, 'PATCH')
 }
 
