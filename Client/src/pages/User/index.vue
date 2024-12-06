@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-//import { refUser } from '@/models/userData'
 import UserList from '@/components/UserList.vue'
 import UserForm from '@/components/UserForm.vue'
-import { update, refsUser, type User } from '@/models/user'
+import { refsUser, getAll, type User } from '@/models/user'
 
 const currUser = refsUser()
 
@@ -11,12 +10,15 @@ function checkAdmin() {
   return currUser.value?.admin
 }
 
-const selectedUser = ref<User | null>(null)
+const users = ref<User[]>([])
+getAll().then(data => {
+  users.value = data.data
+})
 
-function editUser(user: User) {
-  update(user).then(() => {
-    selectedUser.value = user
-  })
+const selectedUser = ref<User | null>(null)
+function updateUser(user: User) {
+  selectedUser.value = user
+  console.log(selectedUser.value)
 }
 </script>
 
@@ -29,7 +31,12 @@ function editUser(user: User) {
   <div v-else>
     <h1 class="title">Admin</h1>
     <UserForm :selectedUser="selectedUser" />
-    <UserList @editUser="editUser" />
+    <UserList
+      v-for="user in users"
+      :key="user.id"
+      :user="user"
+      @updateUser="updateUser"
+    />
   </div>
 </template>
 

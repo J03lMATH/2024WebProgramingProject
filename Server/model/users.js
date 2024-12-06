@@ -168,6 +168,7 @@ async function update(id, user) {
     })
     .eq("id", id)
     .single();
+  console.log("Error:", error);
   return {
     isSuccess: !error,
     message: error?.message,

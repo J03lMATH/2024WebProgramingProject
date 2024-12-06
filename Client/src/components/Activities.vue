@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import { refsUser } from '@/models/user'
-import { defineEmits } from 'vue'
 import { type Info } from '@/models/infos'
-
-const emit = defineEmits(['editWorkout'])
+import editWorkouts from './editWorkouts.vue'
 
 const currUser = refsUser()
 const props = defineProps<{
@@ -71,7 +69,7 @@ const { info } = props
       </div>
       <div class="media-right">
         <div class="columns">
-          <button class="edit">Edit</button>
+          <button><editWorkouts :selectedWorkout="info" /></button>
           <button class="delete is-background-danger" @click="null"></button>
         </div>
       </div>

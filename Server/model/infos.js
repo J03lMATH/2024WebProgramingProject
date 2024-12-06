@@ -82,7 +82,7 @@ async function add(userId, info) {
 }
 
 /**
- * Update a user
+ * Update a info
  * @param {number} id
  * @param {Info} info
  * @returns {Promise<DataEnvelope<Info>>}

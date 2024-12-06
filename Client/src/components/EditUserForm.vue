@@ -1,37 +1,27 @@
 <script setup lang="ts">
 import { ref, watch, defineProps } from 'vue'
-import { update, refsUser, getId, type User } from '@/models/user'
-
+import { update, type User } from '@/models/user'
 const props = defineProps<{ selectedUser: User | null }>()
-const user = ref<User | null>(null)
 
-const currUser = refsUser()
-
-let UserId = undefined
-if (currUser !== null) {
-  UserId = getId()
-} else {
-  UserId = undefined
-}
-
-const name = ref('')
-const email = ref('')
-const username = ref('')
-const password = ref('')
-const age = ref(0)
-const admin = ref(false)
-const image = ref('')
+const SelectedUserId = ref(props.selectedUser?.id || 0)
+const name = ref(props.selectedUser?.name || '')
+const email = ref(props.selectedUser?.email || '')
+const username = ref(props.selectedUser?.username || '')
+const password = ref(props.selectedUser?.password || '')
+const age = ref(props.selectedUser?.age || 0)
+const admin = ref(props.selectedUser?.admin || false)
+const image = ref(props.selectedUser?.image || '')
 const address = ref({
-  street: '',
-  city: '',
-  state: '',
-  zip: '',
+  street: props.selectedUser?.address.street || '',
+  city: props.selectedUser?.address.city || '',
+  state: props.selectedUser?.address.state || '',
+  zip: props.selectedUser?.address.zip || '',
 })
-const selectedUserId = watch(
+watch(
   () => props.selectedUser,
   editUser => {
     if (editUser) {
-      selectedUserId.value = editUser.id
+      SelectedUserId.value = editUser.id
       name.value = editUser.name
       email.value = editUser.email
       username.value = editUser.username
@@ -40,33 +30,31 @@ const selectedUserId = watch(
       admin.value = editUser.admin
       image.value = editUser.image
       address.value = editUser.address
-    } else {
-      resetForm()
     }
+    console.log(editUser)
   },
-  { immediate: true },
 )
 
 function resetForm() {
-  name.value = ''
-  email.value = ''
-  username.value = ''
-  password.value = ''
-  age.value = 0
-  admin.value = false
-  image.value = ''
+  SelectedUserId.value = props.selectedUser?.id || 0
+  name.value = props.selectedUser?.name || ''
+  email.value = props.selectedUser?.email || ''
+  username.value = props.selectedUser?.username || ''
+  password.value = props.selectedUser?.password || ''
+  age.value = props.selectedUser?.age || 0
+  admin.value = props.selectedUser?.admin || false
+  image.value = props.selectedUser?.image || ''
   address.value = {
-    street: '',
-    city: '',
-    state: '',
-    zip: '',
+    street: props.selectedUser?.address.street || '',
+    city: props.selectedUser?.address.city || '',
+    state: props.selectedUser?.address.state || '',
+    zip: props.selectedUser?.address.zip || '',
   }
-  selectedUserId.value = null
 }
 
-function saveUser() {
+async function saveUser() {
   const editUser = {
-    id: selectedUserId.value, //will generate a unique id in the database
+    id: SelectedUserId.value,
     name: name.value,
     email: email.value,
     username: username.value,
@@ -75,14 +63,12 @@ function saveUser() {
     admin: admin.value,
     image: image.value,
     address: address.value,
-    infos: [], // Add an empty array or populate it with appropriate data
+    infos: [],
   }
 
-  if (selectedUserId.value) {
-    update(editUser).then(data => {
-      user.value = data
-      console.log('User updated:', editUser)
-    })
+  if (SelectedUserId.value) {
+    update(editUser)
+    console.log(editUser)
   }
 
   resetForm()
@@ -98,14 +84,14 @@ const isOpen = ref(false)
         :class="{ 'is-active': isOpen }"
         @click="isOpen = !isOpen"
       >
-        Add User
+        Edit
       </a>
       <form @submit.prevent="saveUser">
         <div class="modal" :class="{ 'is-active': isOpen }">
           <div class="modal-background"></div>
           <div class="modal-card">
             <header class="modal-card-head has-background-danger-bold">
-              <p class="modal-card-title has-text-text-45">Add User</p>
+              <p class="modal-card-title has-text-text-45">Edit User</p>
               <button
                 class="delete"
                 aria-label="close"
@@ -127,17 +113,6 @@ const isOpen = ref(false)
                 </div>
               </div>
               <div class="field">
-                <label class="label has-text-text-45" for="date">Email</label>
-                <div class="control">
-                  <input
-                    type="email"
-                    class="input has-background-text-100 has-text-text-45"
-                    id="date"
-                    v-model="email"
-                  />
-                </div>
-              </div>
-              <div class="field">
                 <label class="label has-text-text-45" for="username"
                   >Username</label
                 >
@@ -147,19 +122,6 @@ const isOpen = ref(false)
                     class="input has-background-text-100 has-text-text-45"
                     id="type"
                     v-model="username"
-                  />
-                </div>
-              </div>
-              <div class="field">
-                <label class="label has-text-text-45" for="password"
-                  >Password</label
-                >
-                <div class="control">
-                  <input
-                    type="password"
-                    class="input has-background-text-100 has-text-text-45"
-                    id="distance"
-                    v-model="password"
                   />
                 </div>
               </div>

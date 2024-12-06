@@ -44,9 +44,8 @@ Content-Type: application/json
 
 ###
 PATCH http://localhost:3000/api/v1/users/2
-Content-Type: application/json
 {
-    "name": "Sarah Sue",
+  "age": 20
 }
 
 ###
@@ -74,3 +73,11 @@ Content-Type: application/json
 
 ###
 GET http://localhost:3000/api/v1/users/joel04mathew@gmail.com/logingInByEmail
+
+###
+PATCH http://localhost:3000/api/v1/users/2
+Content-Type: application/json
+
+{
+    "name": "Jane Doe"
+}

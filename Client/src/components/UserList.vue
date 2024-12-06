@@ -1,27 +1,23 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { getAll, remove, type User } from '@/models/user'
+import { remove, type User } from '@/models/user'
+import EditUserForm from './EditUserForm.vue'
 
-const users = ref<User[]>([])
-getAll().then(data => {
-  users.value = data.data
-})
+const props = defineProps<{
+  user: User
+}>()
 
-const emit = defineEmits(['editUser'])
+const { user } = props
 
+const selectedUser = ref<User | null>(null)
 function updateUser(user: User) {
-  emit('editUser', user)
-}
-function removeUser(id: number) {
-  remove(id).then(() => {
-    users.value = users.value.filter(user => user.id !== id)
-  })
+  selectedUser.value = user
+  console.log(selectedUser.value)
 }
 </script>
 
 <template>
   <div>
-    <h2 class="subtitle">User List</h2>
     <table class="table is-fullwidth">
       <thead>
         <tr>
@@ -31,20 +27,14 @@ function removeUser(id: number) {
         </tr>
       </thead>
       <tbody>
-        <tr v-for="profile in users" :key="profile.id">
-          <td>{{ profile.name }}</td>
-          <td>{{ profile.email }}</td>
+        <tr>
+          <td>{{ user.name }}</td>
+          <td>{{ user.email }}</td>
           <td>
-            <button
-              class="button is-small is-info"
-              @click="updateUser(profile)"
-            >
-              Edit
+            <button class="button is-small is-info">
+              <EditUserForm :selectedUser="user" />
             </button>
-            <button
-              class="button is-small is-danger"
-              @click="removeUser(profile.id)"
-            >
+            <button class="button is-small is-danger" @click="remove(user.id)">
               Delete
             </button>
           </td>
