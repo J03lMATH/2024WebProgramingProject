@@ -1,28 +1,29 @@
 import type { DataListEnvelope } from './dataEnvelope'
 import { restAPI } from './myFetch'
 
-export async function getAll() {
-  return restAPI<DataListEnvelope<ExerciseType>>('exerciseTypes')
+export async function getAllEx() {
+  console.log('getting all exercise types')
+  return restAPI<DataListEnvelope<ExerciseType>>('exerciseType')
 }
 
 export async function getById(id: number) {
-  return restAPI<ExerciseType>(`exerciseTypes/${id}`)
+  return restAPI<ExerciseType>(`exerciseType/${id}`)
 }
 
-export function create(exerciseType: ExerciseType) {
-  return restAPI<ExerciseType>('exerciseTypes', exerciseType)
+export function createEx(exerciseType: ExerciseType) {
+  return restAPI<ExerciseType>('exerciseType', exerciseType)
 }
 
-export function update(exerciseType: ExerciseType) {
+export function updateEx(exerciseType: ExerciseType) {
   return restAPI<ExerciseType>(
-    `exerciseTypes/${exerciseType.id}`,
+    `exerciseType/${exerciseType.id}`,
     exerciseType,
     'PATCH',
   )
 }
 
 export function remove(id: number) {
-  return restAPI<ExerciseType>(`exerciseTypes/${id}`, undefined, 'DELETE')
+  return restAPI<ExerciseType>(`exerciseType/${id}`, undefined, 'DELETE')
 }
 
 export interface ExerciseType {

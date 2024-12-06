@@ -1,8 +1,13 @@
 <script setup lang="ts">
 import { ref, watch, defineProps } from 'vue'
 import { type Info, updateInfo } from '@/models/infos'
-
+import { getAllEx, type ExerciseType } from '@/models/exerciseType'
 const props = defineProps<{ selectedWorkout: Info | null }>()
+
+const exerciseTypes = ref<ExerciseType[]>([])
+getAllEx().then(data => {
+  exerciseTypes.value = data.data
+})
 
 const title = ref(props.selectedWorkout?.title || '')
 const date = ref(props.selectedWorkout?.date || '')
@@ -121,14 +126,25 @@ function saveWorkout() {
                 </div>
               </div>
               <div class="field">
-                <label class="label has-text-text-45" for="type">Type</label>
-                <div class="control">
-                  <input
-                    type="text"
-                    class="input has-background-text-100 has-text-text-45"
-                    id="type"
-                    v-model="type"
-                  />
+                <label class="label has-text-text-45" for="type"
+                  >Types Of Exercise</label
+                >
+                <div
+                  v-for="exerciseType in exerciseTypes"
+                  :key="exerciseType.id"
+                >
+                  <div class="control">
+                    <label>
+                      <input
+                        type="radio"
+                        class="radio"
+                        :name="'exercise-type'"
+                        :value="exerciseType.name"
+                        v-model="type"
+                      />
+                      {{ exerciseType.name }}
+                    </label>
+                  </div>
                 </div>
               </div>
               <div class="field">
