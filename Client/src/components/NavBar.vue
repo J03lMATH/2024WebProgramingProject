@@ -50,7 +50,7 @@ const isCartOpen = ref(false)
 
       <div class="navbar-menu" :class="{ 'is-active': isOpen }">
         <div class="navbar-start">
-          <RouterLink to="/home" class="navbar-item">Home</RouterLink>
+          <RouterLink to="/" class="navbar-item">Home</RouterLink>
           <RouterLink to="/activity" class="navbar-item">
             <!-- <span class="icon-text has-text-primary-100">
               <i class="fas fa-fire"></i>
@@ -104,18 +104,6 @@ const isCartOpen = ref(false)
                 LogOut
               </button></RouterLink
             >
-          </div>
-
-          <div class="buttons">
-            <button
-              class="button is-light is-active"
-              :class="{ 'is-focused': isCartOpen }"
-              @click="isCartOpen = !isCartOpen"
-            >
-              <span class="icon">
-                <i class="fas fa-shopping-cart"> </i>
-              </span>
-            </button>
           </div>
         </div>
       </div>

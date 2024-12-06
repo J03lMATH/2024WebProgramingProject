@@ -1,42 +1,40 @@
 <script setup lang="ts">
 import { ref, watch, defineProps } from 'vue'
-import { type Info, createInfo, updateInfo } from '@/models/infos'
-import { refsUser } from '@/models/user'
+import { type Info, updateInfo } from '@/models/infos'
 import { getAllEx, type ExerciseType } from '@/models/exerciseType'
-
 const props = defineProps<{ selectedWorkout: Info | null }>()
 
-const currentUser = refsUser()
 const exerciseTypes = ref<ExerciseType[]>([])
 getAllEx().then(data => {
   exerciseTypes.value = data.data
 })
 
-const title = ref('')
-const date = ref('')
-const type = ref('')
-const distance = ref(0)
-const duration = ref(0)
-const calories = ref(0)
-const avgPace = ref(0)
-const image = ref('')
+const title = ref(props.selectedWorkout?.title || '')
+const date = ref(props.selectedWorkout?.date || '')
+const type = ref(props.selectedWorkout?.type || '')
+const distance = ref(props.selectedWorkout?.distance || 0)
+const duration = ref(props.selectedWorkout?.duration || 0)
+const calories = ref(props.selectedWorkout?.calories || 0)
+const avgPace = ref(props.selectedWorkout?.avgPace || 0)
+const image = ref(props.selectedWorkout?.image || '')
 const isOpen = ref(false)
-const selectedWorkoutId = ref<number | null>(null)
+const selectedWorkoutId = ref(props.selectedWorkout?.id || 0)
+const userId = ref(props.selectedWorkout?.userId || 0)
 
 watch(
   () => props.selectedWorkout,
-  newWorkout => {
-    if (newWorkout) {
-      selectedWorkoutId.value = newWorkout.id
-      title.value = newWorkout.title
-      date.value = newWorkout.date
-      type.value = newWorkout.type
-      distance.value = newWorkout.distance
-      duration.value = newWorkout.duration
-      calories.value = newWorkout.calories
-      avgPace.value = newWorkout.avgPace
-      image.value = newWorkout.image
-      isOpen.value = true
+  updateWorkout => {
+    if (updateWorkout) {
+      selectedWorkoutId.value = updateWorkout.id
+      userId.value = updateWorkout.userId
+      title.value = updateWorkout.title
+      date.value = updateWorkout.date
+      type.value = updateWorkout.type
+      distance.value = updateWorkout.distance
+      duration.value = updateWorkout.duration
+      calories.value = updateWorkout.calories
+      avgPace.value = updateWorkout.avgPace
+      image.value = updateWorkout.image
     } else {
       resetForm()
     }
@@ -45,47 +43,37 @@ watch(
 )
 
 function resetForm() {
-  title.value = ''
-  date.value = ''
-  type.value = ''
-  distance.value = 0
-  duration.value = 0
-  calories.value = 0
-  avgPace.value = 0
-  image.value = ''
-  selectedWorkoutId.value = null
+  title.value = props.selectedWorkout?.title || ''
+  date.value = props.selectedWorkout?.date || ''
+  type.value = props.selectedWorkout?.type || ''
+  distance.value = props.selectedWorkout?.distance || 0
+  duration.value = props.selectedWorkout?.duration || 0
+  calories.value = props.selectedWorkout?.calories || 0
+  avgPace.value = props.selectedWorkout?.avgPace || 0
+  image.value = props.selectedWorkout?.image || ''
+  selectedWorkoutId.value = props.selectedWorkout?.id || 0
+  userId.value = props.selectedWorkout?.userId || 0
   isOpen.value = false
 }
 
 function saveWorkout() {
-  const userId = currentUser.value?.id
-  console.log(userId)
-  if (userId !== undefined) {
-    const newInfo = {
-      id: selectedWorkoutId.value ?? 0,
-      userId: userId,
-      title: title.value,
-      type: type.value,
-      date: date.value,
-      distance: distance.value,
-      duration: duration.value,
-      calories: calories.value,
-      avgPace: avgPace.value,
-      image: image.value,
-    }
-    debugger
-    console.log(newInfo)
+  const newInfo = {
+    id: selectedWorkoutId.value,
+    userId: userId.value,
+    title: title.value,
+    type: type.value,
+    date: date.value,
+    distance: distance.value,
+    duration: duration.value,
+    calories: calories.value,
+    avgPace: avgPace.value,
+    image: image.value,
+  }
 
-    if (selectedWorkoutId.value === null) {
-      createInfo(userId, newInfo)
-    } else {
-      updateInfo(newInfo)
-    }
-    resetForm()
-
-    resetForm()
+  if (selectedWorkoutId.value) {
+    updateInfo(newInfo)
   } else {
-    console.log('User not found/cant be created')
+    console.log('bad Update')
   }
 }
 </script>
@@ -98,14 +86,14 @@ function saveWorkout() {
         :class="{ 'is-active': isOpen }"
         @click="isOpen = !isOpen"
       >
-        Add Workout
+        Edit
       </a>
       <form @submit.prevent="saveWorkout">
         <div class="modal" :class="{ 'is-active': isOpen }">
           <div class="modal-background"></div>
           <div class="modal-card">
             <header class="modal-card-head has-background-danger-bold">
-              <p class="modal-card-title has-text-text-45">Add Workout</p>
+              <p class="modal-card-title has-text-text-45">Edit Wprkout</p>
               <button
                 class="delete"
                 aria-label="close"

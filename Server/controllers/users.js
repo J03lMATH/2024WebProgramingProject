@@ -9,6 +9,12 @@ app
       .then((x) => res.send(x))
       .catch(next);
   })
+  .get("/withInfos", (req, res, next) => {
+    model
+      .getAllWithInfos()
+      .then((x) => res.send(x))
+      .catch(next);
+  })
   .get("/:id", (req, res, next) => {
     const id = req.params.id;
     model

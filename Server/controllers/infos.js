@@ -16,9 +16,10 @@ app
       .then((x) => res.send(x))
       .catch(next);
   })
-  .post("/", (req, res, next) => {
+  .post("/add/:id", (req, res, next) => {
+    const userId = +req.params.id; // Assuming userId is available in req.user
     model
-      .add(req.body)
+      .add(userId, req.body)
       .then((x) => res.send(x))
       .catch(next);
   })

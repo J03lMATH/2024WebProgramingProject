@@ -2,6 +2,7 @@
   "items": [
     {
       "id": 1,
+      "userId": 1,
       "date": "2023-10-01",
       "title": "Evening Cycling",
       "type": "Cycling",
@@ -13,6 +14,7 @@
     },
     {
       "id": 2,
+      "userId": 1,
       "date": "2023-10-02",
       "title": "Evening Run",
       "type": "Running",
@@ -24,6 +26,7 @@
     },
     {
       "id": 3,
+      "userId": 1,
       "date": "2023-10-03",
       "title": "Morning Walk",
       "type": "Walking",
@@ -35,6 +38,7 @@
     },
     {
       "id": 4,
+      "userId": 2,
       "date": "2023-10-04",
       "title": "Evening Walk",
       "type": "Walking",
@@ -46,6 +50,7 @@
     },
     {
       "id": 5,
+      "userId": 2,
       "date": "2023-10-05",
       "title": "Morning Cycling",
       "type": "Cycling",

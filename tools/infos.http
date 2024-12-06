@@ -1,0 +1,31 @@
+###
+GET http://localhost:3000/api/v1/infos
+
+###
+GET http://localhost:3000/api/v1/infos/1
+
+###
+DELETE http://localhost:3000/api/v1/infos/1
+
+###
+POST http://localhost:3000/api/v1/infos/add/1
+Content-Type: application/json
+
+{
+    "title": "Afternoon Run",
+    "date": "2023-11-23",
+    "type": "Running",
+    "distance": 3.0,
+    "duration": 20,
+    "calories": 200,
+    "avgPace": 15,
+    "image": "https://www.verywellfit.com/thmb/1Z6Z9Q1Z9Z9Z9Z9Z9Z9Z9Z9Z9Z9-5c1b1b"
+}
+
+###
+PATCH http://localhost:3000/api/v1/infos/2
+Content-Type: application/json
+
+{
+    "title": "Updated Run"
+}
