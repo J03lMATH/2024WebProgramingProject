@@ -4,7 +4,7 @@ const userController = require("./controllers/users");
 const infoController = require("./controllers/infos");
 const exerciseTypeController = require("./controllers/exerciseType");
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use((req, res, next) => {
@@ -45,10 +45,3 @@ app.listen(PORT, (err, data) => {
   console.log("Server is running at http://localhost:" + PORT);
 });
 console.log("Step #3");
-
-/*  The 4 types of async methods
-    1. Node Style Callbacks
-    2. Pipelines
-    3. Promises
-    4. Async/Await
-*/
