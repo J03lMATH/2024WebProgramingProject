@@ -4,7 +4,7 @@ const userController = require("./controllers/users");
 const infoController = require("./controllers/infos");
 const exerciseTypeController = require("./controllers/exerciseType");
 
-const PORT = process.env.PORT || 3000;
+const PORT = 3000;
 
 // Middleware
 app.use((req, res, next) => {
@@ -40,8 +40,12 @@ app.use((err, req, res, next) => {
 });
 
 console.log("Step #1");
-app.listen(PORT, (err, data) => {
-  console.log("Step #2");
-  console.log("Server is running at http://localhost:" + PORT);
-});
+app.listen(
+  PORT,
+  "https://two024webprogramingprojectfinalfinal.onrender.com",
+  (err, data) => {
+    console.log("Step #2");
+    console.log("Server is running at http://localhost:" + PORT);
+  }
+);
 console.log("Step #3");
