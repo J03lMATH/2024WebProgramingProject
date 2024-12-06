@@ -6,6 +6,7 @@ export interface UserData {
   infos: Info[]
 }
 
+//Commands that help to manage the users
 export function sortUsersInfoByDateForFriends(
   users: User[],
   ascending: boolean = true,
