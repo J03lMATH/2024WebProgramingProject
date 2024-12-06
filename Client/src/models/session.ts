@@ -1,5 +1,4 @@
 import { reactive } from 'vue'
-import { useRouter } from 'vue-router'
 import { restAPI } from '../models/myFetch'
 import { type DataEnvelope } from '../models/dataEnvelope'
 import { type User } from '../models/user'
@@ -16,7 +15,7 @@ export function getSession() {
   return session
 }
 
-export function showError(err: any) {
+export function showError(err: unknown) {
   console.error(err)
 }
 

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { login, setUsers, getByEmail, type User } from '@/models/user'
+import { login, setUsers, getByEmail } from '@/models/user'
 
 const email = ref('joel04mathew@gmail.com')
 const password = ref('CoolPassword')

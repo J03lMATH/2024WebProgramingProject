@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
-//import { refUser, logOut } from '@/models/userData'
 import { getAll, refsUser, logOutbutt, type User } from '@/models/user'
 
 const users = ref<User[]>([])
@@ -16,8 +15,6 @@ function checkAdmin() {
   return currUser.value?.admin
 }
 const isOpen = ref(false)
-
-const isCartOpen = ref(false)
 </script>
 
 <template>
