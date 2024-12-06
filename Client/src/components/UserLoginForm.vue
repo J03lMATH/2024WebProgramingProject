@@ -4,19 +4,23 @@ import { login, setUsers, getByEmail, type User } from '@/models/user'
 
 const email = ref('joel04mathew@gmail.com')
 const password = ref('CoolPassword')
-const user = ref<User | null>(null)
+// const user = ref<User | null>(null)
 
 function handleSubmit() {
   if (email.value != '' && password.value != '') {
     // Handle login logic here
 
     login(email.value, password.value)
+
     getByEmail(email.value).then(result => {
-      user.value = result
+      const user = result.data
+
+      debugger
       console.log('User Infos:', result)
-      console.log('User:', user.value)
-      if (user.value) {
-        setUsers(user.value.data)
+      console.log('User:', user)
+      if (result) {
+        setUsers(user)
+
         //may be red flag but actually works
       }
       console.log('Username:', email.value)

@@ -3,7 +3,6 @@ const app = express();
 const userController = require("./controllers/users");
 const infoController = require("./controllers/infos");
 const exerciseTypeController = require("./controllers/exerciseType");
-const { parseToken, requireAdmin } = require("./middleware/authrization");
 
 const PORT = 3000;
 
