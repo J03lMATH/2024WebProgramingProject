@@ -1,7 +1,8 @@
 import type { Info } from './infos'
 import type { DataListEnvelope } from './dataEnvelope'
-import { rest, restAPI } from './myFetch'
+import { restAPI } from './myFetch'
 import { ref } from 'vue'
+import { type DataEnvelope } from './dataEnvelope'
 
 export async function getAll() {
   return restAPI<DataListEnvelope<User>>('users')
@@ -35,7 +36,7 @@ export function signup(email: string, password: string) {
 }
 
 export function getByEmail(email: string) {
-  return restAPI<User>(`users/${email}/logingInByEmail`)
+  return restAPI<DataEnvelope<User>>(`users/${email}/logingInByEmail`)
 }
 
 export function getAllWithInfos() {

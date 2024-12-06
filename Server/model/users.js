@@ -83,6 +83,7 @@ async function getByLogin(email) {
     .select("*, infos(*)")
     .eq("email", email)
     .single();
+
   return {
     isSuccess: !error,
     message: error?.message,
