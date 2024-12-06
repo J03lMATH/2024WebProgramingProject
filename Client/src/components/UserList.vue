@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import { remove, type User } from '@/models/user'
 import EditUserForm from './EditUserForm.vue'
 
@@ -8,12 +7,6 @@ const props = defineProps<{
 }>()
 
 const { user } = props
-
-const selectedUser = ref<User | null>(null)
-function updateUser(user: User) {
-  selectedUser.value = user
-  console.log(selectedUser.value)
-}
 </script>
 
 <template>

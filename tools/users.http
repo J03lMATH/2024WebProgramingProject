@@ -67,7 +67,7 @@ POST http://localhost:3000/api/v1/users/signup
 Content-Type: application/json
 
 {
-    "email": "jane.doe@example.com",
+    "email": "molly.doe@example.com",
     "password": "SecurePass123"
 }
 

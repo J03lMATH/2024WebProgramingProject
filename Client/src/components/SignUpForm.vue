@@ -76,9 +76,11 @@ function saveUser() {
     },
     infos: [], // Add an empty array or populate it with appropriate data
   }
-
+  debugger
   if (email.value != '' && password.value != '') {
     signup(email.value, password.value)
+
+    console.log('User created:', newUser)
     create(newUser).then(data => {
       user.value = data
       console.log('email:', email.value)
@@ -125,9 +127,9 @@ function saveUser() {
               />
             </div>
 
-            <RouterLink to="/login"
-              ><button type="submit">SignUp</button></RouterLink
-            >
+            <button type="submit">
+              <RouterLink to="/login">SignUp</RouterLink>
+            </button>
           </form>
         </div>
       </div>
