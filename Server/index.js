@@ -40,12 +40,8 @@ app.use((err, req, res, next) => {
 });
 
 console.log("Step #1");
-app.listen(
-  PORT,
-  "https://two024webprogramingprojectfinalfinal.onrender.com",
-  (err, data) => {
-    console.log("Step #2");
-    console.log("Server is running at http://localhost:" + PORT);
-  }
-);
+app.listen(PORT, (err, data) => {
+  console.log("Step #2");
+  console.log("Server is running at http://localhost:" + PORT);
+});
 console.log("Step #3");
