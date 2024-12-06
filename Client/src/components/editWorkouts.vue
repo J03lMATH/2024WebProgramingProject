@@ -9,6 +9,7 @@ getAllEx().then(data => {
   exerciseTypes.value = data.data
 })
 
+//creating all the const
 const title = ref(props.selectedWorkout?.title || '')
 const date = ref(props.selectedWorkout?.date || '')
 const type = ref(props.selectedWorkout?.type || '')
