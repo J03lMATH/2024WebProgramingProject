@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { refsUser } from '@/models/user'
-import { type Info } from '@/models/infos'
+import { type Info, remove } from '@/models/infos'
 import editWorkouts from './editWorkouts.vue'
 
 const currUser = refsUser()
@@ -70,7 +70,10 @@ const { info } = props
       <div class="media-right">
         <div class="columns">
           <button><editWorkouts :selectedWorkout="info" /></button>
-          <button class="delete is-background-danger" @click="null"></button>
+          <button
+            class="delete is-background-danger"
+            @click="remove(info.id)"
+          ></button>
         </div>
       </div>
     </div>

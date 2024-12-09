@@ -15,7 +15,6 @@ function handleSubmit() {
     getByEmail(email.value).then(result => {
       const user = result.data
 
-      debugger
       console.log('User Infos:', result)
       console.log('User:', user)
       if (result) {
