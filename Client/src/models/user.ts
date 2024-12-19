@@ -43,6 +43,14 @@ export function getAllWithInfos() {
   return restAPI<DataListEnvelope<User>>('users/withInfos')
 }
 
+export function getOnlyNames() {
+  return restAPI<DataListEnvelope<User>>('users/names')
+}
+
+export function searchUsers(query: string) {
+  return restAPI<DataListEnvelope<User>>(`users/search?q=${query}`)
+}
+
 export interface User {
   id: number
   name: string

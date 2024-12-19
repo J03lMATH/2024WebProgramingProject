@@ -1,41 +1,22 @@
 <script setup lang="ts">
 import { ref, watch, defineProps } from 'vue'
-import { type Info, createInfo, updateInfo } from '@/models/infos'
-import { refsUser } from '@/models/user'
-import { getAllEx, type ExerciseType } from '@/models/exerciseType'
+import { type Hashtag, addById } from '@/models/hashtags'
 
-const props = defineProps<{ selectedWorkout: Info | null }>()
+const props = defineProps<{ selectedWorkout: Hashtag | null }>()
 
-const currentUser = refsUser()
-const exerciseTypes = ref<ExerciseType[]>([])
-getAllEx().then(data => {
-  exerciseTypes.value = data.data
-})
+const currentInfo = ref()
+const hashtags = ref<Hashtag[]>([])
 
-const title = ref('')
-const date = ref('')
-const type = ref('')
-const distance = ref(0)
-const duration = ref(0)
-const calories = ref(0)
-const avgPace = ref(0)
-const image = ref('')
-const isOpen = ref(false)
 const selectedWorkoutId = ref<number | null>(null)
+const isOpen = ref(false)
+const name = ref('')
 
 watch(
   () => props.selectedWorkout,
-  newWorkout => {
-    if (newWorkout) {
-      selectedWorkoutId.value = newWorkout.id
-      title.value = newWorkout.title
-      date.value = newWorkout.date
-      type.value = newWorkout.type
-      distance.value = newWorkout.distance
-      duration.value = newWorkout.duration
-      calories.value = newWorkout.calories
-      avgPace.value = newWorkout.avgPace
-      image.value = newWorkout.image
+  newHashtag => {
+    if (newHashtag) {
+      selectedWorkoutId.value = newHashtag.id
+      name.value = newHashtag.name
       isOpen.value = true
     } else {
       resetForm()
@@ -45,48 +26,14 @@ watch(
 )
 
 function resetForm() {
-  title.value = ''
-  date.value = ''
-  type.value = ''
-  distance.value = 0
-  duration.value = 0
-  calories.value = 0
-  avgPace.value = 0
-  image.value = ''
+  name.value = ''
   selectedWorkoutId.value = null
   isOpen.value = false
 }
 
-function saveWorkout() {
-  const userId = currentUser.value?.id
-  console.log(userId)
-  if (userId !== undefined) {
-    const newInfo = {
-      id: selectedWorkoutId.value ?? 0,
-      userId: userId,
-      title: title.value,
-      type: type.value,
-      date: date.value,
-      distance: distance.value,
-      duration: duration.value,
-      calories: calories.value,
-      avgPace: avgPace.value,
-      image: image.value,
-      hashtags: [],
-    }
-    debugger
-    console.log(newInfo)
-
-    if (selectedWorkoutId.value === null) {
-      createInfo(userId, newInfo)
-    } else {
-      updateInfo(newInfo)
-    }
-    resetForm()
-
-    resetForm()
-  } else {
-    console.log('User not found/cant be created')
+function saveHashtag() {
+  if (selectedWorkoutId.value !== null) {
+    addById(selectedWorkoutId.value, newHashtag)
   }
 }
 </script>
@@ -106,7 +53,7 @@ function saveWorkout() {
           <div class="modal-background"></div>
           <div class="modal-card">
             <header class="modal-card-head has-background-danger-bold">
-              <p class="modal-card-title has-text-text-45">Add Workout</p>
+              <p class="modal-card-title has-text-text-45">+</p>
               <button
                 class="delete"
                 aria-label="close"

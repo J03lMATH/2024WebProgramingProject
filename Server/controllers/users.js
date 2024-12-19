@@ -15,6 +15,21 @@ app
       .then((x) => res.send(x))
       .catch(next);
   })
+  .get("/names", async (req, res, next) => {
+    model
+      .getUserNames()
+      .then((x) => res.send(x))
+      .catch(next);
+  })
+
+  .get("/search", async (req, res, next) => {
+    const query = req.query.q;
+    model
+      .searchUser(query)
+      .then((x) => res.send(x))
+      .catch(next);
+  })
+
   .get("/:id", (req, res, next) => {
     const id = req.params.id;
     model
@@ -90,22 +105,6 @@ app
     try {
       const response = await model.getByLogin(email);
       res.status(response.isSuccess ? 200 : 401).send(response);
-    } catch (error) {
-      next(error);
-    }
-  })
-
-  //trying to set up a login by session once working will delete the other login fucntions
-  .post("/loginByData", async (req, res, next) => {
-    try {
-      const { email, password } = req.body;
-      const response = await model.loginByData(email, password);
-      if (response.isSuccess) {
-        req.user = response.data.user;
-        req.token = response.data.token;
-      } else {
-        res.status(401).send(response);
-      }
     } catch (error) {
       next(error);
     }

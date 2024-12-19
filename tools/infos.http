@@ -2,7 +2,7 @@
 GET http://localhost:3000/api/v1/infos
 
 ###
-GET http://localhost:3000/api/v1/infos/1
+GET http://localhost:3000/api/v1/infos/3
 
 ###
 DELETE http://localhost:3000/api/v1/infos/1

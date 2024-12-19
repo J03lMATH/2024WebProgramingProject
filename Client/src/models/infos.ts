@@ -1,4 +1,6 @@
+export type { Hashtag } from './hashtags'
 import type { DataListEnvelope } from './dataEnvelope'
+import type { Hashtag } from './hashtags'
 import { restAPI } from './myFetch'
 
 export async function getAllInfos() {
@@ -32,4 +34,5 @@ export interface Info {
   calories: number
   avgPace: number
   image: string
+  hashtags: Hashtag[]
 }
