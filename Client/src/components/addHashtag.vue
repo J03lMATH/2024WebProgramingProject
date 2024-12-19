@@ -32,6 +32,11 @@ function resetForm() {
 }
 
 function saveHashtag() {
+  const newHashtag = {
+    id: selectedWorkoutId.value ?? 0,
+    infoId: currentInfo.value.id,
+    name: name.value,
+  }
   if (selectedWorkoutId.value !== null) {
     addById(selectedWorkoutId.value, newHashtag)
   }
@@ -48,7 +53,7 @@ function saveHashtag() {
       >
         Add Workout
       </a>
-      <form @submit.prevent="saveWorkout">
+      <form @submit.prevent="saveHashtag">
         <div class="modal" :class="{ 'is-active': isOpen }">
           <div class="modal-background"></div>
           <div class="modal-card">
@@ -64,111 +69,13 @@ function saveHashtag() {
 
             <section class="modal-card-body has-background-text-bold">
               <div class="field">
-                <label class="label has-text-text-45" for="title">Title</label>
+                <label class="label has-text-text-45" for="title">Name</label>
                 <div class="control">
                   <input
                     type="text"
                     class="input has-background-text-100 has-text-text-45"
                     id="title"
-                    v-model="title"
-                  />
-                </div>
-              </div>
-              <div class="field">
-                <label class="label has-text-text-45" for="date">Date</label>
-                <div class="control">
-                  <input
-                    type="date"
-                    class="input has-background-text-100 has-text-text-45"
-                    id="date"
-                    v-model="date"
-                  />
-                </div>
-              </div>
-              <div class="field">
-                <label class="label has-text-text-45" for="type"
-                  >Types Of Exercise</label
-                >
-                <div
-                  v-for="exerciseType in exerciseTypes"
-                  :key="exerciseType.id"
-                >
-                  <div class="control">
-                    <label>
-                      <input
-                        type="radio"
-                        class="radio"
-                        :name="'exercise-type'"
-                        :value="exerciseType.name"
-                        v-model="type"
-                      />
-                      {{ exerciseType.name }}
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <div class="field">
-                <label class="label has-text-text-45" for="distance"
-                  >Distance</label
-                >
-                <div class="control">
-                  <input
-                    type="number"
-                    class="input has-background-text-100 has-text-text-45"
-                    id="distance"
-                    v-model="distance"
-                  />
-                </div>
-              </div>
-              <div class="field">
-                <label class="label has-text-text-45" for="duration"
-                  >Duration</label
-                >
-                <div class="control">
-                  <input
-                    type="number"
-                    class="input has-background-text-100 has-text-text-45"
-                    id="duration"
-                    v-model="duration"
-                  />
-                </div>
-              </div>
-              <div class="field">
-                <label class="label has-text-text-45" for="calories"
-                  >Calories</label
-                >
-                <div class="control">
-                  <input
-                    type="number"
-                    class="input has-background-text-100 has-text-text-45"
-                    id="calories"
-                    v-model="calories"
-                  />
-                </div>
-              </div>
-              <div class="field">
-                <label class="label has-text-text-45" for="avgPace"
-                  >Avg Pace</label
-                >
-                <div class="control">
-                  <input
-                    type="number"
-                    class="input has-background-text-100 has-text-text-45"
-                    id="avgPace"
-                    v-model="avgPace"
-                  />
-                </div>
-              </div>
-              <div class="field">
-                <label class="label has-text-text-45" for="image"
-                  >Image URL</label
-                >
-                <div class="control">
-                  <input
-                    type="text"
-                    class="input has-background-text-100 has-text-text-45"
-                    id="image"
-                    v-model="image"
+                    v-model="name"
                   />
                 </div>
               </div>
