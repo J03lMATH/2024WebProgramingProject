@@ -55,6 +55,22 @@ async function getAllWithInfos() {
 }
 
 /**
+ * Get only user names
+ * @returns {Promise<DataListEnvelope<User>>}
+ *
+ */
+
+async function getUserNames() {
+  const { data, error, count } = await conn.from("users").select("name");
+  return {
+    isSuccess: !error,
+    message: error?.message,
+    data: data,
+    total: count,
+  };
+}
+
+/**
  * Get a user by id
  * @param {number} id
  * @returns {Promise<DataEnvelope<User>>}
@@ -340,6 +356,19 @@ async function loginByData(email, password) {
   };
 }
 
+//search
+async function searchUser(query) {
+  const { data, error } = await conn
+    .from("users")
+    .select("*")
+    .ilike("name", `%${query}%`);
+  return {
+    isSuccess: !error,
+    message: error?.message,
+    data: data,
+  };
+}
+
 module.exports = {
   getAll,
   get,
@@ -357,4 +386,6 @@ module.exports = {
   getByLogin, //getUser by Email and Password
   getAllWithInfos,
   loginByData, //Login by Data
+  getUserNames,
+  searchUser,
 };

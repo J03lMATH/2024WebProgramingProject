@@ -3,6 +3,7 @@ const app = express();
 const userController = require("./controllers/users");
 const infoController = require("./controllers/infos");
 const exerciseTypeController = require("./controllers/exerciseType");
+const hashtagController = require("./controllers/hashtags");
 
 const PORT = 3000;
 
@@ -28,6 +29,7 @@ app
   .use("/api/v1/users", userController)
   .use("/api/v1/infos", infoController)
   .use("/api/v1/exerciseType", exerciseTypeController)
+  .use("/api/v1/hashtags", hashtagController)
 
   .get("*", (req, res, next) => {
     res.sendFile(__dirname + "/dist/index.html");

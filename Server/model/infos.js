@@ -20,7 +20,7 @@ const conn = getConnection();
 async function getAll() {
   const { data, error, count } = await conn
     .from("infos")
-    .select("*", { count: "estimated" });
+    .select("*, hashtags(*)", { count: "estimated" });
   return {
     isSuccess: !error,
     message: error?.message,
@@ -37,7 +37,7 @@ async function getAll() {
 async function get(id) {
   const { data, error } = await conn
     .from("infos")
-    .select("*")
+    .select("*, hashtags(*)")
     .eq("id", id)
     .single();
   return {
@@ -71,6 +71,17 @@ async function add(userId, info) {
     ])
     .select("*")
     .single();
+  if (info.hashtags?.length) {
+    await conn
+      .from("hashtags")
+      .insert(
+        info.hashtags.map((hashtag) => ({
+          infoId: data.id,
+          name: hashtag.name,
+        }))
+      )
+      .select("*");
+  }
   console.log("Data:", data);
   console.log("Error:", error);
 

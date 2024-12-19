@@ -3,6 +3,7 @@ import Activities from '@/components/Activities.vue'
 import { refsUser, getInfos, getId } from '@/models/user'
 import MakeWorkout from '@/components/MakeWorkout.vue'
 import { ref } from 'vue'
+import searchBar from '@/components/searchBar.vue'
 import type { Info } from '@/models/infos'
 
 const currentUser = refsUser()
@@ -38,6 +39,7 @@ if (UserId !== undefined) {
     </div>
   </div>
   <div class="forms" v-else>
+    <searchBar />
     <MakeWorkout :selectedWorkout="selectedWorkout" />
   </div>
   <Activities

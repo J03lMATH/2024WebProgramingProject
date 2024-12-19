@@ -64,9 +64,16 @@ const { info } = props
                 <img :src="info.image" />
               </figure>
             </div>
+            <div class="column is-one-third">
+              <p>{{ info.hashtags }}</p>
+              <div v-for="hashtag in info.hashtags" :key="hashtag.id">
+                <p>{{ hashtag.name }}</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+
       <div class="media-right">
         <div class="columns">
           <button><editWorkouts :selectedWorkout="info" /></button>
