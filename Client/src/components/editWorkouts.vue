@@ -69,6 +69,7 @@ function saveWorkout() {
     calories: calories.value,
     avgPace: avgPace.value,
     image: image.value,
+    hashtags: props.selectedWorkout?.hashtags || [],
   }
 
   if (selectedWorkoutId.value) {
